@@ -1,6 +1,6 @@
 # AWS認定資格テキスト AWS認定クラウドプラクティショナー
-* https://www.amazon.co.jp/dp/4797397403/ref=cm_sw_em_r_mt_dp_U_NGakEb305PQ0C
-* ISBN-10 4797397403 の読書メモ
+* https://www.amazon.co.jp/dp/4797397403/ref=cm_sw_em_r_mt_dp_U_NGakEb305PQ0C の学習ノート
+* ISBN-10 4797397403 
 
 ## 第1章 AWS認定資格
 ### AWS認定資格とは？
@@ -71,9 +71,9 @@
 
 ## 第3章 AWSのセキュリティ
 ### 3-1 責任共有モデル
-* ユーザーとAWSの責任分界点
-  * ユーザー：クラウド内のセキュリティ
-  * AWS：クラウド本体のセキュリティ
+ユーザーとAWSの責任分界点
+* ユーザー：クラウド内のセキュリティ
+* AWS：クラウド本体のセキュリティ
 
 ### 3-2 AWSクラウドのセキュリティ
 AWSセキュリティの4つの利点
@@ -106,15 +106,56 @@ AWSセキュリティの4つの利点
   * 要はユーザー側から触れない部分はAWSが実施
 
 #### セキュリティのベストプラクティス
+1. 転送中のデータの保護
+    * 適切なプロトコル/暗号化アルゴリズムの選択
+2. 蓄積データの保護
+    * DB登録時のアプリケーション上でのデータ暗号化
+3. AWS資格情報の保護
+4. アプリケーションの安全性の確保
+    * OSコマンドインジェクション、SQLインジェクション、XSS等の対策
 
 #### 第三者認証
-
+* AWSの物理レイヤーは監査機関による検査を受けており、**AWS Artifact**でデータを提供
+* CSA, ISO各種企画, PIC DSSレベル1, SOC1..3
+* 国内ビジネスで必要な認証: FinTech, FISC, NISC等
 
 ### 3-3 IAM
+* IAM: AWS Identity and Access Management
+* 各種キーワードを抑える
+  * ルートアカウント
+  * IAMユーザー
+  * IAMグループ
+  * APIキー (アクセスキー,シークレットアクセスキー)
+
+#### IAMロール
+* EC2, Lambda等の権限付与のためのAPIキーの利用は非推奨。代わりにIAMロールを利用
+* AWS Directory ServiceでIAMロールを使用することで、SSO (Single Sign On) 構成にすることも可能
 
 ### 3-4 セキュリティグループ
+* 許可ルールの指定が可能
+* 拒否ルールの指定は不可
+* インバンウド/アウトバウンドトラフィックのルールを個別指定
 
 ### 3-5 AWS ShieldとAWS WAF
+* AWS Shield
+  * マネージド型のDDoS攻撃に対する保護サービス
+  * DDoS: Distributed Denial of Service attack
+  * AWS Shield Standard (無償) と Advanced (有償) がある
+  * Advancedを選択するとWAFサービスが無制限に利用、DDoS Response Teamの24,365サポート (フォレンジック・分析)
+* AWS WAF
+  * WAF: Web Application Firewall
+  * WAFの定義はユーザー自身で行う必要があるが、SQLインジェクションはXSSのような一般的な攻撃をグロックするカスタルール、特定のアプリケーションのために設計されるルールを作成可能
+  * Webセキュリティルールに基づき課金
+  * WAFの適用範囲
+    * CloudFront: CDNサービス
+    * Application Load Balancer
+    * API Gateway
 
 ### 3-6 Inspector
+* EC2上にデプロイされたアプリケーションのセキュリティとコンプライアンスを向上させるための脆弱性診断を自動で行うサービス
+* PCI DSSのようなルールパッケージを利用してスケジュール設定により自動でチェック
+* 生成されたコンプライアンスレポートをAWS Artifactから取得可能
 
+#### AWS Key Management Service (KMS)
+* AWS上で暗号化キーをかんたんに作成・管理、幅広いAWSサービスやアプリケーションでの使用を制御可能
+* CloudTrailと統合されており、すべてのキーの使用ログを表示可能
