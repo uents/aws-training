@@ -7,7 +7,6 @@
 --- Well-Architectedフレームワーク
 ---- 5つの柱
 ---- 11のベストプラクティス
----- モノリスとマイクロサービス
 
 --[#Orange] セキュリティと\nコンプライアンス（25%）
 --- 責任共有モデル
@@ -55,14 +54,14 @@
 ---- 料金計算ツール
 
 --- 請求
+---- 請求とコスト管理ダッシュボード
+---- コンソリデーティッドビリング（一括請求）
 ---- AWS Budgets
 ---- AWS Cost Explorer
 ---- Saving Plansの購入・管理
----- AWS Origanizations
------ 一括請求 (コンソリデーティッドビリング)
 
 --- サポートプラン
----- AWS Personal\nHealth Dashboard
+---- AWS Personal Health Dashboard
 ---- テクニカルアカウント\nマネージャー (TAM)
 --- AWS Marketplace
 
