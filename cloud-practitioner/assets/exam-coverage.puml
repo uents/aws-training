@@ -5,7 +5,48 @@
 --- クラウドコンピューティングとは
 --- クラウドコンピューティングの6つの利点
 --- Well-Architectedフレームワーク
+---- 5つの柱
 ---- 11のベストプラクティス
+---- モノリスとマイクロサービス
+
+--[#Orange] セキュリティと\nコンプライアンス（25%）
+--- 責任共有モデル
+---- 顧客とAWSの責任分界点
+
+--- ユーザーアクセス
+---- ルートユーザー
+---- IAM
+----- IAMアイデンティティ
+------ IAMユーザー
+------ IAMロール
+------ IAMグループ
+----- IAMポリシー
+----- IDフェデレーション
+----- MFA
+
+--- AWS Organizations
+---- 組織単位(OU)
+---- サービスコントロールポリシー(SCP)
+
+--- コンプライアンス
+---- AWS Artifact
+----- Artifact Reports
+----- Artifact Agreements
+---- カスタマーコンプライアンスセンター
+
+--- クラッキング対策
+---- セキュリティグループ
+---- ELB
+---- AWS Shield
+---- AWS WAF
+
+--- データ暗号化
+---- AWS KMS
+---- CloudHSM
+
+--- 評価/分析
+---- Inspector
+---- GuardDrty
 
 --[#Orange] 料金と請求（16%）
 --- 料金
@@ -13,48 +54,25 @@
 ---- 料金体系の仕組み
 ---- 料金計算ツール
 
---- 一括請求 (コンソリデーティッドビリング)
----- AWS Origanizations
+--- 請求
 ---- AWS Budgets
 ---- AWS Cost Explorer
+---- Saving Plansの購入・管理
+---- AWS Origanizations
+----- 一括請求 (コンソリデーティッドビリング)
 
 --- サポートプラン
 ---- AWS Personal\nHealth Dashboard
 ---- テクニカルアカウント\nマネージャー (TAM)
 --- AWS Marketplace
 
---[#Orange] セキュリティと\nコンプライアンス（25%）
---- 責任共有モデル
-
---- AWS Organizations
----- サービスコントロールポリシー(SCP)
-
---- IAM
----- IAMエンティティ
----- IAMポリシー
-
---- 妨害対策
----- AWS Shield
----- AWS WAF
-
---- コンプライアンス
----- AWS Aritifact
----- カスタマー\nコンプライアンスセンター
-
---- 監視
----- CloudTrail
----- Trusted Advisor
----- Inspector
----- SMS
-
 ++[#Orange] テクノロジー（33%）
 +++ クローバルインフラクトラクチャ
 ++++ リージョン
 ++++ アベイラビリティゾーン
 ++++ エッジロケーション
-+++++ CloudFront
 
-+++ プロビジョニング
++++ プロビジョニングとデプロイ
 ++++ マネージメントコンソール
 ++++ コマンドラインインターフェース(CLI)
 ++++ CloudFormation
@@ -83,7 +101,6 @@
 +++++ Auto Scaling
 
 ++++ メッセージング/キューイング
-+++++ モノリスとマイクロサービス
 +++++ SNS
 +++++ SQS
 
@@ -93,6 +110,7 @@
 +++ ストレージ
 ++++ EBS
 ++++ S3
++++++ S3 Gateway
 ++++ EFS
 
 +++ データベース
@@ -103,7 +121,12 @@
 
 +++ モニタリング/分析
 ++++ CloudWatch
+++++ CloudTrail
+++++ Trusted Advisor
 
 +++ AWSへの移行
+++++ Cloud Adoption Framework (CAF)
+++++ 6つのR
+++++ Snowファミリー
 
 @endmindmap
