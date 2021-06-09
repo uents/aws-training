@@ -3,6 +3,10 @@
 
 --[#Orange] クラウドの概念（26%）
 --- クラウドコンピューティングとは
+---- クラウド型
+---- オンプレミス型
+---- ハイブリット型
+----- AWS Outposts
 --- クラウドコンピューティングの6つの利点
 --- Well-Architectedフレームワーク
 ---- 5つの柱
@@ -62,7 +66,7 @@
 
 --- サポートプラン
 ---- AWS Personal Health Dashboard
----- テクニカルアカウント\nマネージャー (TAM)
+---- テクニカルアカウントマネージャー (TAM)
 --- AWS Marketplace
 
 ++[#Orange] テクノロジー（33%）
@@ -75,8 +79,9 @@
 ++++ マネージメントコンソール
 ++++ コマンドラインインターフェース(CLI)
 ++++ CloudFormation
-++++ Elastic Beanstalk
 ++++ OpsWorks
+++++ Elastic Beanstalk
+++++ AWS Outposts
 
 +++ ネットワーク
 ++++ VPC
@@ -118,10 +123,11 @@
 ++++ Redshift
 ++++ DynanmoDB
 
-+++ モニタリング/分析
++++ モニタリング/運用
 ++++ CloudWatch
 ++++ CloudTrail
 ++++ Trusted Advisor
+++++ Systems Manager
 
 +++ AWSへの移行
 ++++ Cloud Adoption Framework (CAF)
