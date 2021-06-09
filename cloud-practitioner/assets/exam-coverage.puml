@@ -7,6 +7,7 @@
 ---- オンプレミス型
 ---- ハイブリット型
 ----- AWS Outposts
+----- Direct Connect
 --- クラウドコンピューティングの6つの利点
 --- Well-Architectedフレームワーク
 ---- 5つの柱
@@ -81,20 +82,20 @@
 ++++ CloudFormation
 ++++ OpsWorks
 ++++ Elastic Beanstalk
-++++ AWS Outposts
 
 +++ ネットワーク
 ++++ VPC
-++++ サブネット
-++++ ネットワークACL
-++++ セキュリティグループ
-++++ 外部NWとの接続
-+++++ Internet Gateway
-+++++ NAT Gateway
-+++++ 仮想プライベートゲートウェイ
-+++++ Direct Connect
-+++++ VPCピアリング
-++++ Route 53
++++++ サブネット
++++++ ネットワークACL
++++++ セキュリティグループ
+++++ インターネットゲートウェイ
+++++ 仮想プライベートゲートウェイ
+++++ Direct Connect
+++++ VPCピアリング
+++++ NATゲートウェイ
+++++ コンテンツ配信サービス
++++++ Route 53
++++++ CloudFront
 
 +++ コンピューティング
 ++++ EC2
