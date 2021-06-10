@@ -51,7 +51,8 @@
 
 --- 評価/分析
 ---- Inspector
----- GuardDrty
+---- GuardDuty
+---- Trusted Advisor
 
 --[#Orange] 料金と請求\n（16%）
 --- 料金
@@ -77,7 +78,7 @@
 ++++ アベイラビリティゾーン
 ++++ エッジロケーション
 
-+++ プロビジョニングとデプロイ
++++ プロビジョニング/デプロイ
 ++++ マネージメントコンソール
 ++++ コマンドラインインターフェース(CLI)
 ++++ CloudFormation
@@ -128,6 +129,7 @@
 
 +++ データベース
 ++++ RDS
++++++ RDSデータベースエンジン
 ++++ DynamoDB
 ++++ Aurora
 ++++ Redshift
@@ -135,6 +137,8 @@
 
 +++ モニタリング/運用
 ++++ CloudWatch
++++++ CloudWatchアラーム
++++++ CloudWatchダッシュボード
 ++++ CloudTrail
 ++++ Trusted Advisor
 ++++ Systems Manager
