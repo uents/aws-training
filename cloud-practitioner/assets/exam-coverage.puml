@@ -1,13 +1,14 @@
 @startmindmap
 -[#Pink] AWSクラウド\nプラクティショナー
 
---[#Orange] クラウドの概念（26%）
+--[#Orange] クラウドの概念\n（26%）
 --- クラウドコンピューティングとは
 ---- クラウド型
 ---- オンプレミス型
 ---- ハイブリット型
------ AWS Outposts
+----- Outposts
 ----- Direct Connect
+----- S3 Gateway
 --- クラウドコンピューティングの6つの利点
 --- Well-Architectedフレームワーク
 ---- 5つの柱
@@ -33,7 +34,7 @@
 ---- サービスコントロールポリシー(SCP)
 
 --- コンプライアンス
----- AWS Artifact
+---- Artifact
 ----- Artifact Reports
 ----- Artifact Agreements
 ---- カスタマーコンプライアンスセンター
@@ -41,18 +42,18 @@
 --- クラッキング対策
 ---- セキュリティグループ
 ---- ELB
----- AWS Shield
----- AWS WAF
+---- Shield
+---- WAF
 
 --- データ暗号化
----- AWS KMS
+---- KMS
 ---- CloudHSM
 
 --- 評価/分析
 ---- Inspector
 ---- GuardDrty
 
---[#Orange] 料金と請求（16%）
+--[#Orange] 料金と請求\n（16%）
 --- 料金
 ---- 無料利用枠
 ---- 料金体系の仕組み
@@ -61,16 +62,16 @@
 --- 請求
 ---- 請求とコスト管理ダッシュボード
 ---- コンソリデーティッドビリング（一括請求）
----- AWS Budgets
----- AWS Cost Explorer
+---- Budgets
+---- Cost Explorer
 ---- Saving Plansの購入・管理
 
 --- サポートプラン
----- AWS Personal Health Dashboard
+---- Personal Health Dashboard
 ---- テクニカルアカウントマネージャー (TAM)
---- AWS Marketplace
+--- Marketplace
 
-++[#Orange] テクノロジー（33%）
+++[#Orange] テクノロジー\n（33%）
 +++ クローバルインフラクトラクチャ
 ++++ リージョン
 ++++ アベイラビリティゾーン
@@ -99,30 +100,38 @@
 
 +++ コンピューティング
 ++++ EC2
-+++++ インスタンスストア
++++++ インスタンスタイプ
 +++++ AMI
+
 ++++ スケーラビリティ
-+++++ ELB
 +++++ Auto Scaling
++++++ Elastic Load Balancer
 
 ++++ メッセージング/キューイング
 +++++ SNS
 +++++ SQS
 
-++++ ECS
-++++ Lambda
+++++ サーバレス/コンテナ
++++++ Lambda
++++++ ECS
++++++ EKS
++++++ Fargate
 
 +++ ストレージ
+++++ インスタンスストア
 ++++ EBS
++++++ EBSスナップショット
 ++++ S3
-+++++ S3 Gateway
++++++ ストレージクラス
++++++ S3 Transfer Acceleration
 ++++ EFS
 
 +++ データベース
 ++++ RDS
+++++ DynamoDB
 ++++ Aurora
 ++++ Redshift
-++++ DynanmoDB
+++++ DMS
 
 +++ モニタリング/運用
 ++++ CloudWatch
@@ -130,9 +139,10 @@
 ++++ Trusted Advisor
 ++++ Systems Manager
 
-+++ AWSへの移行
++++ マイグレーション
 ++++ Cloud Adoption Framework (CAF)
 ++++ 6つのR
 ++++ Snowファミリー
+++++ Server Migration Service（SMS）
 
 @endmindmap
