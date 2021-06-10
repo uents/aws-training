@@ -39,7 +39,7 @@
 ----- Artifact Agreements
 ---- カスタマーコンプライアンスセンター
 
---- クラッキング対策
+--- 防御
 ---- セキュリティグループ
 ---- ELB
 ---- Shield
@@ -133,7 +133,6 @@
 ++++ DynamoDB
 ++++ Aurora
 ++++ Redshift
-++++ DMS
 
 +++ モニタリング/運用
 ++++ CloudWatch
@@ -142,11 +141,13 @@
 ++++ CloudTrail
 ++++ Trusted Advisor
 ++++ Systems Manager
+++++ Config
 
 +++ マイグレーション
 ++++ Cloud Adoption Framework (CAF)
 ++++ 6つのR
 ++++ Snowファミリー
+++++ Database Migration Service（DMS）
 ++++ Server Migration Service（SMS）
 
 @endmindmap
