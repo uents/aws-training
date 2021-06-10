@@ -1,0 +1,152 @@
+@startmindmap
+-[#Pink] AWSクラウド\nプラクティショナー
+
+--[#Orange] クラウドの概念\n（26%）
+--- クラウドコンピューティングとは
+---- クラウド型
+---- オンプレミス型
+---- ハイブリット型
+----- Outposts
+----- Direct Connect
+----- S3 Gateway
+--- クラウドコンピューティングの6つの利点
+--- Well-Architectedフレームワーク
+---- 5つの柱
+---- 11のベストプラクティス
+
+--[#Orange] セキュリティと\nコンプライアンス（25%）
+--- 責任共有モデル
+---- 顧客とAWSの責任分界点
+
+--- ユーザーアクセス
+---- ルートユーザー
+---- IAM
+----- IAMアイデンティティ
+------ IAMユーザー
+------ IAMロール
+------ IAMグループ
+----- IAMポリシー
+----- IDフェデレーション
+----- MFA
+
+--- AWS Organizations
+---- 組織単位(OU)
+---- サービスコントロールポリシー(SCP)
+
+--- コンプライアンス
+---- Artifact
+----- Artifact Reports
+----- Artifact Agreements
+---- カスタマーコンプライアンスセンター
+
+--- クラッキング対策
+---- セキュリティグループ
+---- ELB
+---- Shield
+---- WAF
+
+--- データ暗号化
+---- KMS
+---- CloudHSM
+
+--- 評価/分析
+---- Inspector
+---- GuardDuty
+---- Trusted Advisor
+
+--[#Orange] 料金と請求\n（16%）
+--- 料金
+---- 無料利用枠
+---- 料金体系の仕組み
+---- 料金計算ツール
+
+--- 請求
+---- 請求とコスト管理ダッシュボード
+---- コンソリデーティッドビリング（一括請求）
+---- Budgets
+---- Cost Explorer
+---- Saving Plansの購入・管理
+
+--- サポートプラン
+---- Personal Health Dashboard
+---- テクニカルアカウントマネージャー (TAM)
+--- Marketplace
+
+++[#Orange] テクノロジー\n（33%）
++++ クローバルインフラクトラクチャ
+++++ リージョン
+++++ アベイラビリティゾーン
+++++ エッジロケーション
+
++++ プロビジョニング/デプロイ
+++++ マネージメントコンソール
+++++ コマンドラインインターフェース(CLI)
+++++ CloudFormation
+++++ OpsWorks
+++++ Elastic Beanstalk
+
++++ ネットワーク
+++++ VPC
++++++ サブネット
++++++ ネットワークACL
++++++ セキュリティグループ
+++++ インターネットゲートウェイ
+++++ 仮想プライベートゲートウェイ
+++++ Direct Connect
+++++ VPCピアリング
+++++ NATゲートウェイ
+++++ コンテンツ配信サービス
++++++ Route 53
++++++ CloudFront
+
++++ コンピューティング
+++++ EC2
++++++ インスタンスタイプ
++++++ AMI
+
+++++ スケーラビリティ
++++++ Auto Scaling
++++++ Elastic Load Balancer
+
+++++ メッセージング/キューイング
++++++ SNS
++++++ SQS
+
+++++ サーバレス/コンテナ
++++++ Lambda
++++++ ECS
++++++ EKS
++++++ Fargate
+
++++ ストレージ
+++++ インスタンスストア
+++++ EBS
++++++ EBSスナップショット
+++++ S3
++++++ ストレージクラス
++++++ S3 Transfer Acceleration
+++++ EFS
+
++++ データベース
+++++ RDS
++++++ RDSデータベースエンジン
+++++ DynamoDB
+++++ Aurora
+++++ Redshift
+++++ DMS
+
++++ モニタリング/運用
+++++ CloudWatch
++++++ CloudWatchアラーム
++++++ CloudWatchダッシュボード
+++++ CloudTrail
+++++ Trusted Advisor
+++++ Systems Manager
+
++++ マイグレーション
+++++ Cloud Adoption Framework (CAF)
+++++ 6つのR
+++++ Snowファミリー
+++++ Server Migration Service（SMS）
+
+@endmindmap
