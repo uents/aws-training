@@ -330,15 +330,21 @@ DDoS攻撃からアプリケーションを保護するサービス
 ## データ暗号化
 ### AWS KMS（Key Management System）
 * AWSリソースに対して暗号化キーによる暗号化オペレーションを実行できるサービス
-* 暗号化キーそのものはAWS管理のサーバで管理しそれを利用
+* CMK（カスタマーマスターキー）そのものはAWS管理のサーバで管理しそれを利用
+* 独自のキーマテリアルをKMSにインポートできる
 * CloudTrailと統合されており、すべての暗号化キーの使用履歴ログを確認可能
+* https://dev.classmethod.jp/articles/10minutes-kms/ の説明が詳しい
+
+![](./assets/kms.png)
 
 ### CloudHSM
 * AWSが提供するクラウドベースのハードウェアセキュリティモジュール（HSM）
 * CloudHSMクラスタはユーザー専用（KMSの場合は共有サーバ）のため、VPC内にクラスタを作成する必要がある
 * PKCS#11、Java Cyrptography Extensions（JCE）、Microsoft CryptNG（CNG）といったグローバル標準の暗号化形式に対応
-* 暗号化キーを他のHSMソリューションに移行することも可能
+* 暗号化キーを他のHSMソリューションに移行することも可能（標準の暗号化形式のため？）
 * KMSよりより厳しいコンプライアンス基準に対応できると思われる
+
+![](./assets/cloud-hsm.png)
 
 ## 評価/分析
 ### Inspector
