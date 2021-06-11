@@ -1,5 +1,138 @@
 # クラウドプラクティショナー学習まとめ
 
+<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+
+<!-- code_chunk_output -->
+
+- [クラウドプラクティショナー学習まとめ](#クラウドプラクティショナー学習まとめ)
+- [1. 試験内容](#1-試験内容)
+  - [試験の対象分野](#試験の対象分野)
+  - [試験の詳細](#試験の詳細)
+- [2. クラウドの概念](#2-クラウドの概念)
+  - [クラウドコンピューティングとは](#クラウドコンピューティングとは)
+  - [クラウドコンピューティングの6つの利点](#クラウドコンピューティングの6つの利点)
+  - [Well-Architectedフレームワーク](#well-architectedフレームワーク)
+    - [5つの柱](#5つの柱)
+    - [11のベストプラクティス](#11のベストプラクティス)
+- [3. セキュリティとコンプライアンス](#3-セキュリティとコンプライアンス)
+  - [責任共有モデル](#責任共有モデル)
+    - [責任範囲の考え方](#責任範囲の考え方)
+  - [ユーザーアクセス](#ユーザーアクセス)
+    - [ルートユーザー](#ルートユーザー)
+    - [IAM](#iam)
+  - [AWS Organizations](#aws-organizations)
+    - [複数アカウントを一元管理](#複数アカウントを一元管理)
+    - [組織単位（OU）](#組織単位ou)
+    - [サービスコントロールポリシー（SCP）](#サービスコントロールポリシーscp)
+  - [コンプライアンス](#コンプライアンス)
+    - [AWS Artifact](#aws-artifact)
+    - [カスタマーコンプライアンスセンター](#カスタマーコンプライアンスセンター)
+    - [防御](#防御)
+      - [セキュリティグループ](#セキュリティグループ)
+    - [Elastic Load Balancer（ELB）](#elastic-load-balancerelb)
+    - [AWS WAF（Web Application Firewall）](#aws-wafweb-application-firewall)
+    - [AWS Shield](#aws-shield)
+  - [データ暗号化](#データ暗号化)
+    - [AWS KMS（Key Management System）](#aws-kmskey-management-system)
+    - [CloudHSM](#cloudhsm)
+  - [評価/分析](#評価分析)
+    - [Inspector](#inspector)
+    - [GuardDuty](#guardduty)
+    - [Trusted Advisor](#trusted-advisor)
+    - [AWS不正対策チーム（Trust & Safety Team）](#aws不正対策チームtrust-safety-team)
+- [4. 請求と料金](#4-請求と料金)
+  - [料金](#料金)
+    - [無料利用枠](#無料利用枠)
+    - [料金体系の仕組み](#料金体系の仕組み)
+    - [料金計算ツール](#料金計算ツール)
+  - [請求](#請求)
+    - [請求とコスト管理ダッシュボード](#請求とコスト管理ダッシュボード)
+    - [コンソリデーティッドビリング（一括請求）](#コンソリデーティッドビリング一括請求)
+    - [AWS Budgets](#aws-budgets)
+    - [AWS Cost Explorer](#aws-cost-explorer)
+  - [AWSサポートプラン](#awsサポートプラン)
+    - [テクニカルアカウントマネージャー（TAM）](#テクニカルアカウントマネージャーtam)
+  - [AWS Marketplace](#aws-marketplace)
+- [5. テクノロジー](#5-テクノロジー)
+  - [グローバルインフラクトラクチャ](#グローバルインフラクトラクチャ)
+    - [リージョン](#リージョン)
+    - [アベイラビリティゾーン](#アベイラビリティゾーン)
+    - [エッジロケーション](#エッジロケーション)
+  - [プロビジョニング/デプロイ](#プロビジョニングデプロイ)
+    - [AWSマネジメントコンソール](#awsマネジメントコンソール)
+    - [AWSコマンドラインインターフェース（AWS CLI）](#awsコマンドラインインターフェースaws-cli)
+    - [ソフトウェア開発キット（SDK）](#ソフトウェア開発キットsdk)
+    - [CloudFormation](#cloudformation)
+    - [OpsWorks](#opsworks)
+    - [Elastic Beanstalk](#elastic-beanstalk)
+  - [ネットワーク](#ネットワーク)
+    - [VPC](#vpc)
+    - [インターネットゲートウェイ](#インターネットゲートウェイ)
+    - [仮想プライベートゲートウェイ](#仮想プライベートゲートウェイ)
+    - [Direct Connect](#direct-connect)
+    - [VPCピアリング](#vpcピアリング)
+    - [VPCのネットワーク構成要素](#vpcのネットワーク構成要素)
+      - [サブネット](#サブネット)
+      - [ネットワークACL（アクセスコントロールリスト）](#ネットワークaclアクセスコントロールリスト)
+      - [セキュリティグループ](#セキュリティグループ-1)
+    - [コンテンツ配信サービス](#コンテンツ配信サービス)
+      - [Route 53](#route-53)
+      - [CloudFront](#cloudfront)
+  - [コンピューティング](#コンピューティング)
+    - [EC2](#ec2)
+      - [EC2のインスタンスタイプ](#ec2のインスタンスタイプ)
+      - [EC2の料金](#ec2の料金)
+      - [AMI](#ami)
+      - [プレイスメントグループ](#プレイスメントグループ)
+  - [スケーラビリティ](#スケーラビリティ)
+    - [Auto Scaling](#auto-scaling)
+    - [Elastic Load Balancer（ELB）](#elastic-load-balancerelb-1)
+    - [メッセージ/キューイング](#メッセージキューイング)
+      - [Simple Notification Service（SNS）](#simple-notification-servicesns)
+      - [Simple Queue Service（SQS）](#simple-queue-servicesqs)
+  - [サーバーレス/コンテナ](#サーバーレスコンテナ)
+    - [Lambda](#lambda)
+    - [ECS（Elastic Container Service）](#ecselastic-container-service)
+    - [EKS（Elastic Kubernetes Service）](#ekselastic-kubernetes-service)
+    - [Fargate](#fargate)
+    - [コンテナサービスでのAWS/ユーザーの責任範囲](#コンテナサービスでのawsユーザーの責任範囲)
+  - [ストレージ](#ストレージ)
+    - [インスタンスストア](#インスタンスストア)
+    - [EBS](#ebs)
+    - [EBSスナップショット](#ebsスナップショット)
+    - [S3](#s3)
+      - [S3のセキュリティ](#s3のセキュリティ)
+      - [S3ストレージクラス](#s3ストレージクラス)
+      - [S3 Transfer Acceleration](#s3-transfer-acceleration)
+      - [S3ゲートウェイ](#s3ゲートウェイ)
+    - [EFS](#efs)
+  - [データベース](#データベース)
+    - [RDS](#rds)
+      - [RDSデータベースエンジン](#rdsデータベースエンジン)
+    - [DynamoDB](#dynamodb)
+      - [RDSとDynamoDBの違い](#rdsとdynamodbの違い)
+    - [Redshift](#redshift)
+    - [Database Migration Service（DMS）](#database-migration-servicedms)
+    - [その他のデータベース](#その他のデータベース)
+  - [モニタリング/運用](#モニタリング運用)
+    - [CloudWatch](#cloudwatch)
+      - [CloudWatchアラーム](#cloudwatchアラーム)
+      - [CloudWatchダッシュボード](#cloudwatchダッシュボード)
+    - [CloudTrail](#cloudtrail)
+    - [Trusted Advisor](#trusted-advisor-1)
+    - [Systems Manager](#systems-manager)
+    - [Config](#config)
+  - [マイグレーション](#マイグレーション)
+    - [Cloud Adoption Framework（CAF）](#cloud-adoption-frameworkcaf)
+    - [6つのR](#6つのr)
+    - [Snowファミリー](#snowファミリー)
+    - [Server Migration Service（SMS）](#server-migration-servicesms)
+  - [その他のサービス](#その他のサービス)
+    - [Amazon Elastic MapReduce（EMR）](#amazon-elastic-mapreduceemr)
+    - [AWS Outposts](#aws-outposts)
+
+<!-- /code_chunk_output -->
+
 # 1. 試験内容
 ## 試験の対象分野
 
@@ -178,9 +311,13 @@ OUまたは個別アカウントに指定するポリシーで、OU／アカウ�
 * セキュリティグループはインスタンスレベルではなくネットワークレベルで動作する
 * UDPフラッドやUDPリフレクションのような低レベルネットワークの攻撃に対して、ネットワーク（AWSインフラ）レベルで対処できるため、ユーザーのアプリケーションが攻撃に対して直接的に被害を受けず極めて有効に働く
 
-### ELB（Elastic Load Balancer）
-* リソースに対するリクエストを単一のエンドポイントで受け付けるためのサービス
-* AWSのリージョン単位で機能するため、SlowlorisのようにHTTPトラフィックのリクエストを遅延・飽和させるような攻撃について、攻撃者はリージョンレベルで飽和させる必要があるため極めてコストがかかることから、これらの攻撃に対して有効に働く
+### Elastic Load Balancer（ELB）
+* 機能の詳細は「コンピューティング」を参照
+* AWSのリージョン単位で機能するため、SlowlorisのようにHTTPトラフィックのリクエストを遅延・飽和させるような攻撃について、ELBを配置することで攻撃者はリージョンレベルで飽和させる必要があり極めてコストがかかることから、これらの攻撃に対して有効に働く
+
+### AWS WAF（Web Application Firewall）
+* CloudFrontやALBと連動してウェブアプリケーションに入ってくるネットワークリクエストをモニタリングするウェブアプリケーションファイアウォール
+* WAFの定義（ウェブACL）はユーザー自身で行う必要があるが、SQLインジェクションやXSSのような一般的な攻撃をブロックするカスタムルールが用意されており、特定のアプリケーションのための独自ルールを作成することも可能
 
 ### AWS Shield
 DDoS攻撃からアプリケーションを保護するサービス
@@ -189,10 +326,6 @@ DDoS攻撃からアプリケーションを保護するサービス
 |--|--|--|
 | AWS Shield Standard | 無償 | 最も一般的で頻度の高いタイプのDDoS攻撃からAWSリソースを保護 |
 | AWS Shield Advanced | 有償 | ・詳細な攻撃診断と、高度なDDoS攻撃の検出および緩和機能を持つ<br>・CloudFront、Route 53、Elastic Load Balancing などの他のサービスと統合されている<br>・複雑なDDoS攻撃を緩和するカスタムルールを作成して、AWS WAFと統合することができる。また、WAFサービスが無制限に利用可能になる<br>・DDoS Response Team（DRT）のフォレンジックや分析サポートを24時間365日受けることができる |
-
-### AWS WAF（Web Application Firewall）
-* CloudFrontやALBと連動してウェブアプリケーションに入ってくるネットワークリクエストをモニタリングするウェブアプリケーションファイアウォール
-* WAFの定義（ウェブACL）はユーザー自身で行う必要があるが、SQLインジェクションやXSSのような一般的な攻撃をブロックするカスタムルールが用意されており、特定のアプリケーションのための独自ルールを作成することも可能
 
 ## データ暗号化
 ### AWS KMS（Key Management System）
@@ -365,20 +498,20 @@ AWSサービスにアクセスしサービスを管理するためのウェブ�
 * プログラミング言語やプラットフォーム用に設計されたAPI群
 * アプリケーションはこれらのAPIを介してAWSのサービスを使用できる
 
-#### CloudFormation
+### CloudFormation
 * AWSの各リソースによるインフラ構成をコード（JSON/YAML）によって自動作成/更新/管理する（IaC：Infrastructure as Code）
 * インフラ構成をコードで記述できるため、安全で繰り返し可能な方法でリソースをプロビジョニングできる
 * スタック（CloudFormationにおけるテンプレートで定義されたリソースの集合）を生成時にエラーが発生した場合、その変更が自動的にロールバックされる
 
 ![](./assets/cloudformation.png)
 
-#### OpsWorks
+### OpsWorks
 * ChefやPuppetを利用してクラウドアプリケーションを設定・運用するための設定管理サービス
 * CloudFormationはAWS全般の管理に対し、OpsWorksは主にEC2インスタンス上のアプリケーションの管理
 
 ![](./assets/opsworks.png)
 
-#### Elastic Beanstalk
+### Elastic Beanstalk
 * クラウドアプリケーションを迅速にデプロイするサービス
 * キャパシティの調整、負荷分散、自動スケーリング、アプリケーション状態のモニタリングが可能
 * Go、Java、.NET、Node.js、PHP、Python、Ruby で開発されたアプリケーションをサポート
@@ -507,16 +640,16 @@ AWSサービスにアクセスしサービスを管理するためのウェブ�
 |--|--|
 | 最小キャパシティ | Auto Scalingグループ作成後にすぐ作成されるEC2インスタンスの数 |
 | 希望キャパシティ | 定常時に作成されるEC2インスタンスの数 |
-| 最大キャパシティ | 需要の増加におうじてスケールアウトする時のEC2インスタンス数の上限<br>タイミングや条件はAuto Scalingポリシーで設定 |
+| 最大キャパシティ | 需要の増加に応じてスケールアウトする時のEC2インスタンス数の上限<br>タイミングや条件はAuto Scalingポリシーで設定 |
 
 * Auto Scalingポリシーの詳細
-    * ターゲットポリシー：CPU率等の数値にもとづき設定
-    * シンプルポリシー：CloudWatchアラームにもとづき設定
-    * ステップポリシー：複数フェーズでの設定
+  * ターゲットポリシー：CPU率等の数値にもとづき設定
+  * シンプルポリシー：CloudWatchアラームにもとづき設定
+  * ステップポリシー：複数フェーズでの設定
 
-### Elastic Load Balancer
-* Elastic Load Blancer（ELB）：アプリケーションのトラフィックをEC2インスタンス等のリソースに自動的に分散するサービス
-* ELBとAuto Scalingを連動させることにより、実行中のアプリケーションの高いスケーラビリティと可用性を実現できる
+### Elastic Load Balancer（ELB）
+* アプリケーションのトラフィックをEC2インスタンス等のリソースに自動的に分散するサービス
+* ELBとAuto Scalingを連動させる（=Auto ScalingグループにELBのターゲットグループを設定する）ことにより、実行中のアプリケーションの高いスケーラビリティと可用性を実現できる
 
 ![](./assets/elastic-load-balancer.png)
 
@@ -560,6 +693,14 @@ AWSサービスにアクセスしサービスを管理するためのウェブ�
 * ECSとEKSの両方で利用可能
 * 料金はコンテナの実行に必要なリソースに対してのみ発生
 
+### コンテナサービスでのAWS/ユーザーの責任範囲
+* AWS
+  * インフラ管理
+  * アプリケーションプラットフォームの管理
+* ユーザー
+  * プロビジョニング管理
+  * アクセス管理
+  * ネットワークトラフィック制御
 
 ## ストレージ
 ### インスタンスストア
@@ -574,8 +715,8 @@ AWSサービスにアクセスしサービスを管理するためのウェブ�
 
 ### EBSスナップショット
 * EBSボリュームのある時点のバックアップ
-* 完全バックアップではなく増分バックアップを行う
-* 実体はS3に存在している
+* 最初は完全バックアップ、その後は増分バックアップを行う
+* EBSスナップショットの実体はS3（よってリージョン単位）で保存される
 
 ### S3
 * オブジェクトレベルのストレージを提供するサービス
@@ -588,13 +729,13 @@ AWSサービスにアクセスしサービスを管理するためのウェブ�
 
 > S3はブロックストレージではないので（=ブロック単位の編集はできずオブジェクトを全置き換えするしかないので）、頻繁で細かい修正を繰り返す場合はEBSの方が向いている
 
-##### S3のセキュリティ
+#### S3のセキュリティ
 * 保存データの保護
   * データの暗号化を有効にする
 * データ転送の保護
   * 転送時にSSLを使用 or クライアント側で暗号化してデータ転送
 
-##### S3ストレージクラス
+#### S3ストレージクラス
 
 | クラス | 用途 | 特徴 |
 |--|--|--|
@@ -759,9 +900,17 @@ AWSサービスにアクセスしサービスを管理するためのウェブ�
 | Snowmobile | 大容量データをAWSに移動するために使用できるエクサバイト規模のデータ転送サービス<br>セミトレーラートラックが牽引する長さ14mの丈夫な輸送コンテナで、Snowmobile 1台あたり最大100ペタバイトのデータを転送できる |
 
 ### Server Migration Service（SMS）
-オンプレミスの VMware vSphere、Microsoft Hyper-V/SCVMM、またはAzure仮想マシンのAWSクラウドへの移行を自動化するサービス
+オンプレミスのワークロード（VMware vSphere、Microsoft Hyper-V/SCVMM、Azure仮想マシン）のAWSクラウドへの移行を自動化するサービス
 
 ## その他のサービス
+### Amazon Elastic MapReduce（EMR）
+* Apache Spark、Apache Hive、Presto などのオープンソースのビッグデータフレームワークを使用して、膨大な量のデータを処理して分析するサービス
+* 主なユースケース
+  * ETL処理
+  * ストリーム分析
+  * インタラクティブ分析
+  * 機械学習、ゲノミクス
+
 ### AWS Outposts
 * オンプレミスの形式を取りながら、AWSをクラウド型インフラストラクチャーとして実行できるサービス
 * AWSが巨艦サーバを契約企業内に設置する
