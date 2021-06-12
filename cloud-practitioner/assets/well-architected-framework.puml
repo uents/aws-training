@@ -1,18 +1,20 @@
 @startmindmap
 -[#Pink] Well-Architected\nフレームワーク
--- 運用上の優秀性\n(Operational Excellence)
+--[#Orange] 運用上の優秀性\n(Operational Excellence)
 --- 2.環境の自動化
 
--- 安全性\n(Security)
+--[#Orange] 安全性\n(Security)
 --- 11.セキュリティの確保
 
--- 信頼性\n(Reliability)
---- 1.スケーラビリティの確保
---- 2.環境の自動化
---- 4.コンポーネントの疎結合
---- 8.単一障害点(SPOF)の排除
+--[#Orange] 信頼性\n(Reliability)
+--- 弾力性・柔軟さ
+---- 1.スケーラビリティの確保
+---- 2.環境の自動化
+--- 一貫性
+---- 4.コンポーネントの疎結合
+---- 8.単一障害点(SPOF)の排除
 
-++ パフォーマンス効率\n(Performance Efficiency)
+++[#Orange] パフォーマンス効率\n(Performance Efficiency)
 +++ 1.スケーラビリティの確保
 +++ 3.使い捨てリソースの使用
 +++ 5.サーバーレス
@@ -20,7 +22,7 @@
 +++ 7.増大するデータ量の対応
 +++ 10.キャッシュの利用
 
-++ コスト最適化\n(Cost Optimization)
-+++ 5.コスト最適化
+++[#Orange] コスト最適化\n(Cost Optimization)
++++ 5.サーバレス
 
 @endmindmap
