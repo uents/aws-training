@@ -22,7 +22,7 @@
     - [IAM](#iam)
   - [AWS Organizations](#aws-organizations)
     - [複数アカウントを一元管理](#複数アカウントを一元管理)
-    - [組織単位（OU）](#組織単位ou)
+    - [組織単位（OU）](#組織単位ou)
     - [サービスコントロールポリシー（SCP）](#サービスコントロールポリシーscp)
   - [コンプライアンス](#コンプライアンス)
     - [AWS Artifact](#aws-artifact)
@@ -278,7 +278,7 @@ AWSホワイトペーパー等により確認・学習が可能
 ### 複数アカウントを一元管理
 その企業が複数のアカウントを持っている場合、AWS Organizationsを使用すると、それらのアカウント群をー元的に管理することができる
 
-### 組織単位（OU）
+### 組織単位（OU）
 ![](assets/organization-unit.png)
 
 管理しているアカウントのうちの複数を組織単位（OU：Organization Unit）にグループ化できる
