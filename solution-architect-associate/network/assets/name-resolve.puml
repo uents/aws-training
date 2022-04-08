@@ -1,0 +1,25 @@
+@startuml
+hide footbox
+autonumber
+
+participant "Amazonの\nウェブサーバ" as web
+participant "ローカル" as local
+participant "リソルバ" as resolver
+participant "ルート\nネームサーバ" as root
+participant "com\nネームサーバ" as com
+participant "Amazon\nネームサーバ" as amzn
+
+local ->> resolver ++ : www.amazon.com の\nIPアドレスを問い合わせ
+
+resolver ->> root ++ : www.amazon.com の\nIPアドレスを問い合わせ
+return comのネームサーバに\n訊いてください
+resolver ->> com ++ : www.amazon.com の\nIPアドレスを問い合わせ
+return Amazonのネームサーバに\n訊いてください
+resolver ->> amzn ++ : www.amazon.com の\nIPアドレスを問い合わせ
+return 168.209.56.10です
+
+return 168.209.56.10です
+
+local ->> web : www.amazon.com\n(168.209.56.10)\nにアクセス
+
+@enduml
