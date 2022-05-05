@@ -39,10 +39,10 @@ https://d1.awsstatic.com/ja_JP/training-and-certification/docs-sa-assoc/AWS-Cert
     * SQS
 * コンピューティング
     * EC2
-    * Elastic Beanstalk
-    * EC2
-    * EKS
     * Elastic Load Balancing
+    * Auto Scaling
+    * ECS
+    * EKS
     * Fargate
     * Lambda
 * データベース
@@ -52,9 +52,10 @@ https://d1.awsstatic.com/ja_JP/training-and-certification/docs-sa-assoc/AWS-Cert
     * RDS
     * Redshift
 * マネジメント/ガバナンス
-    * Auto Scaling
-    * Backup
+    * Elastic Beanstalk
+    * OpsWorks
     * CloudFormation
+    * Backup
     * CloudTrail
     * CloudWatch
     * Config
@@ -70,14 +71,16 @@ https://d1.awsstatic.com/ja_JP/training-and-certification/docs-sa-assoc/AWS-Cert
     * Server Migration Service
     * Snowball
     * Transfer Family
+    * VM Import/Export
 * ネットワーク/コンテンツ配信
-    * API Gateway
-    * CloudFront
-    * Direct Connect
-    * Global Accelerator
-    * Route 53
-    * Transit Gateway
     * VPC（および関連機能）
+    * Route 53
+    * CloudFront
+    * Global Accelerator
+    * API Gateway
+    * Transit Gateway
+    * Direct Connect
+    * Site-to-Site VPN
 * セキュリティ/権限管理/コンプライアンス
     * AWS Certificate Manager（ACM）
     * Directory Service
@@ -91,8 +94,8 @@ https://d1.awsstatic.com/ja_JP/training-and-certification/docs-sa-assoc/AWS-Cert
     * Single Sign-On
     * WAF
 * ストレージ
+    * S3/Glacier
     * EBS
     * EFS
     * FSx
-    * S3/Glacier
     * Storage Gateway
