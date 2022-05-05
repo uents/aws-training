@@ -1,11 +1,22 @@
 # データベース
+## AWSのデータベースとユースケース
+https://qiita.com/leomaro7/items/e48d9941dab5b5f2a718
+
+![](https://qiita-user-contents.imgix.net/https%3A%2F%2Fqiita-image-store.s3.ap-northeast-1.amazonaws.com%2F0%2F280929%2F55f5c666-9788-3337-d09e-44dd955d4a9c.png?ixlib=rb-4.0.0&auto=format&gif-q=60&q=75&w=1400&fit=max&s=adc449aef758ec67efd22706d327a87c)
 
 ---
 ## RDS
 
+### レプリケーションラグ
+* Amazon RDS for MySQLのレプリケーションで遅延が発生しているかどうかを確認する方法 | DevelopersIO (classmethod.jp)
+  - https://dev.classmethod.jp/articles/how-to-know-how-late-a-replica-in-rds-for-mysql-ver-5-series/
+* RDS for Oracle インスタンスのリードレプリカによるレプリケーションラグのトラブルシューティング (amazon.com)
+  - https://aws.amazon.com/jp/premiumsupport/knowledge-center/rds-oracle-troubleshoot-replication-lags/
 
 ---
 ## Aurora
+* マルチAZで分散されたクラスタ構成により、高速・高性能なRDBを実現
+
 ### Auroraレプリカ
 * 他のリージョンに対してリードレプリカを構築可能
   + AuroraグローバルDB： https://aws.amazon.com/jp/rds/aurora/global-database/

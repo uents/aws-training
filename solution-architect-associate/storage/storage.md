@@ -1,5 +1,11 @@
 # ストレージ
 
+| ストレージ | サービス | 特徴 |
+| --- | --- | --- |
+| ブロックストレージ | EBS、インスタンスストア | EC2にアタッチして活用するストレージサービス。ブロック形式でデータを保存。高速・広帯域幅 | 
+| オブジェクトストレージ | S3、Glacier | 安価で高い耐久性を持つストレージサービス。オブジェクト形式でデータを保存（ファイルシステムは存在しない） |
+| ファイルストレージ | EFS | 複数のEC2から同時にアタッチ可能な共有ストレージサービス。保存形式はファイル形式 |
+
 ---
 ## EBS
 ### ボリュームタイプ
@@ -16,14 +22,34 @@
 ---
 ## S3/Glacier
 ### ストレージクラス
+#### S3
+
+| タイプ | 性能 | 特徴 |
+| --- | --- | --- |
+| Standard | | |
+| Standard-IA[※2] | | |
+| One Zone-IA | | |
+| RRS[※3] | | |
+
+* [※1] トリプルイレブン=99.999999999%
+* [※2] Infrequency Access（低頻度アクセス）の略
+* [※3] RRSの利用は現在は非推奨
+
+#### Glacier
+
+| タイプ | 性能 | 特徴 |
+| --- | --- | --- |
+| Glacier | S3より低コスト。データ抽出（標準取り出し）に3~5時間を要する。ただし、迅速取り出しだと高コストだが5分以内 | 耐久性：トリプルイレブン、可用性：N/A |
+| Glacier Deep Archive | 基本的なデータモデル・管理はGlacierと同じだが、データ取得はさらに遅くなる分コストは削減できる。標準取り出しで12時間以内・大量取り出しで48時間以内 | 同上 |
 
 ### 耐久性と整合性
 * 耐久性
   - 複数のAZ・AZ内の複数の物理ストレージに複製されることで、高い耐久性を維持
 * 整合性
-  - **結果整合性の方式を採用**
-  - データの保存後、複製が完全に終わるまでの間にデータを参照すると、
-    参照先によっては保存前の状態が取得されることに注意
+  - **強い整合性モデル**を利用
+  - 2020/12のアップデートまでは結果整合性モデル
+    + データの保存後、複製が完全に終わるまでの間にデータを参照すると、
+      参照先によっては保存前の状態が取得されていた
 
 ### ライフサイクル管理
 * 移行アクション
@@ -38,6 +64,9 @@
 ### バージョン管理
 
 ### アクセス制御
+* S3 MFA Delete
+  - S3バケットた対しMFA認証を有効化
+  - ユーザー処理に対し毎回MFA認証を求められるため、操作ミスによる削除を防ぐことができる
 
 ### 署名付きURL
 * アクセスを許可するオブジェクトに対して、期限を設定してURLを発行する機能
@@ -60,10 +89,16 @@
 * WindowsベースのクライアントではeFSは使用できない。
   ただし、代替サービスとしてAmazon FSx for Windows File Serverが利用できる（FSxはNTFSファイルシステム）
 
-## FSx
+## FSx (for Windows File Server)
+https://aws.amazon.com/jp/fsx/windows/
+![](https://d1.awsstatic.com/pdp-how-it-works-assets/Product-Page-Diagram_Managed-File-System-How-it-Works_Updated@2x.c0c4e846c0fca27e8f43bd1651883b21b4cc1eec.png)
+
+* フルマネージド型のMicrosoft Windowsファイルシステム（NTFS）の共有ストレージを提供するサービス
+* SMBプロトコルを使って最大数千台のコンピューティングインスタンスからアクセス可能なファイルシステムを提供
+* Windows File Server以外に、NetApp ONTAP、OpenZFS、Lustre向けのサービスもある https://aws.amazon.com/jp/fsx/
 
 ## Storage Gateway
-出展： https://aws.amazon.com/jp/storagegateway/
+https://aws.amazon.com/jp/storagegateway/
 ![](https://d1.awsstatic.com/pdp-how-it-works-assets/product-page-diagram_AWS-Storage-Gateway_HIW@2x.6df96d96cdbaa61ed3ce935262431aabcfb9e52d.png)
 
 * オンプレミスにあるデータをクラウドへ連携するための受け口を提供するサービス

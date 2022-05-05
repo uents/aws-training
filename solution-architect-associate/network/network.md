@@ -165,8 +165,7 @@ Route 53 リソルバ経由のDNSクエリにもとづくサイトへの不正�
 * CloudFrontは世界中に120を超えるエッジロケーション
 
 ### CloudFrontのバックエンド
-出展： https://aws.amazon.com/jp/cloudfront/
-
+https://aws.amazon.com/jp/cloudfront/
 ![](https://d1.awsstatic.com/products/cloudfront/product-page-diagram_CloudFront_HIW.475cd71e52ebbb9acbe55fd1b242c75ebb619a2e.png)
 
 * エッジロケーション・エッジキャッシュ（単に「エッジ」とも呼ぶ）・オリジンサーバから構成される
@@ -177,3 +176,17 @@ Route 53 リソルバ経由のDNSクエリにもとづくサイトへの不正�
 * また、オンプレミスのサーバも指定できるため、既存のシステム構成に変更を加えることなくCloudFrontをを導入することで、イベントなどによる一時的にはアクセス増に備えるといった使い方も
 
 
+---
+## Direct Connect
+https://aws.amazon.com/jp/directconnect/
+![](https://d1.awsstatic.com/Networking/direct-connect/SiteLink.f18c21ea71ea11fadc4d69e07acfc26d1208f31d.png)
+
+* AWSとオフィス・データセンターなどの物理拠点を専用線で繋ぐサービス
+* 接続速度は最大100Gbps。1Gbps/10Gbps/100GbpsのEtherポートを持つ専用線によりAWSとのリンクを確立
+* Direct ConnectロケーションとAWSまでの回線はAWS側で用意。ユーザー拠点からDirect Connectロケーションまでの回線はユーザー側で用意。（ただし、それを用意してくれるAPNパートナーもいる模様） https://atbex.attokyo.co.jp/blog/detail/9/
+
+---
+## Site-to-Site VPN
+* https://docs.aws.amazon.com/ja_jp/vpn/latest/s2svpn/VPC_VPN.html
+* AWSとオンプレ環境のVPN接続サービス
+* 回線はインターネットを利用。IPsecをサポート
