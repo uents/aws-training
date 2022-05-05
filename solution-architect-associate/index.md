@@ -40,10 +40,10 @@ https://d1.awsstatic.com/ja_JP/training-and-certification/docs-sa-assoc/AWS-Cert
 * コンピューティング
     * EC2
     * Elastic Beanstalk
-    * EC2
+    * ECS
     * EKS
-    * Elastic Load Balancing
     * Fargate
+    * Elastic Load Balancing
     * Lambda
 * データベース
     * Aurora
@@ -91,8 +91,8 @@ https://d1.awsstatic.com/ja_JP/training-and-certification/docs-sa-assoc/AWS-Cert
     * Single Sign-On
     * WAF
 * ストレージ
+    * S3/Glacier
     * EBS
     * EFS
     * FSx
-    * S3/Glacier
     * Storage Gateway
