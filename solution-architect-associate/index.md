@@ -22,6 +22,8 @@ https://aws.amazon.com/jp/certification/certified-solutions-architect-associate/
 ![](assets/exam-coverage.svg)
 
 ## 対象サービス
+https://d1.awsstatic.com/ja_JP/training-and-certification/docs-sa-assoc/AWS-Certified-Solutions-Architect-Associate_Exam-Guide.pdf
+
 * アナリティクス
     * Athena
     * Elasticsearch Service
@@ -40,7 +42,7 @@ https://aws.amazon.com/jp/certification/certified-solutions-architect-associate/
     * Elastic Beanstalk
     * EC2
     * EKS
-    * Elastic Load Balancer
+    * Elastic Load Balancing
     * Fargate
     * Lambda
 * データベース
