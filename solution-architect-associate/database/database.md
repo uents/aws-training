@@ -1,13 +1,24 @@
 # データベース
 
-## Aurora
-
-## DynamoDB
-
-## ElastiCache
-
+---
 ## RDS
 
+
+---
+## Aurora
+### Auroraレプリカ
+* 他のリージョンに対してリードレプリカを構築可能
+  + AuroraグローバルDB： https://aws.amazon.com/jp/rds/aurora/global-database/
+* 概ね1秒以下・最大でも5秒という低レイテンシーでレプリケーションを実現
+* マスターに障害が発生した場合、リーダーがマスターに昇格することでフェイルオーバーを実現。（他のRDSにはない機能）
+
+---
+## ElastiCache
+
+---
+## DynamoDB
+
+---
 ## Redshift
 ### Redshiftのアーキテクチャ
 出展： https://gihyo.jp/dev/serial/01/redshift/0005

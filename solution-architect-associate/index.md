@@ -39,7 +39,6 @@ https://d1.awsstatic.com/ja_JP/training-and-certification/docs-sa-assoc/AWS-Cert
     * SQS
 * コンピューティング
     * EC2
-    * Elastic Beanstalk
     * ECS
     * EKS
     * Fargate
@@ -54,6 +53,8 @@ https://d1.awsstatic.com/ja_JP/training-and-certification/docs-sa-assoc/AWS-Cert
 * マネジメント/ガバナンス
     * Auto Scaling
     * Backup
+    * Elastic Beanstalk
+    * OpsWorks
     * CloudFormation
     * CloudTrail
     * CloudWatch
