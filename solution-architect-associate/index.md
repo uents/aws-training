@@ -37,6 +37,9 @@ https://d1.awsstatic.com/ja_JP/training-and-certification/docs-sa-assoc/AWS-Cert
 * インテグレーション
     * SNS
     * SQS
+    * (SES)
+    * (MQ)
+    * Step Functions
 * コンピューティング
     * EC2
     * Elastic Load Balancing
@@ -52,15 +55,17 @@ https://d1.awsstatic.com/ja_JP/training-and-certification/docs-sa-assoc/AWS-Cert
     * RDS
     * Redshift
 * マネジメント/ガバナンス
-    * Elastic Beanstalk
-    * OpsWorks
-    * CloudFormation
+    * プロビジョニング
+        * Elastic Beanstalk
+        * OpsWorks
+        * CloudFormation
+        * SAM
     * Backup
     * CloudTrail
     * CloudWatch
     * Config
     * EventBridge
-    * AWS Origanizations
+    * AWS Organizations
     * Resource Access Manager
     * Systems Manager
     * Trusted Advisor
@@ -74,18 +79,19 @@ https://d1.awsstatic.com/ja_JP/training-and-certification/docs-sa-assoc/AWS-Cert
     * VM Import/Export
 * ネットワーク/コンテンツ配信
     * VPC（および関連機能）
+    * Direct Connect
+    * Site-to-Site VPN
+    * Transit Gateway
     * Route 53
     * CloudFront
     * Global Accelerator
     * API Gateway
-    * Transit Gateway
-    * Direct Connect
-    * Site-to-Site VPN
+    * AppSync
 * セキュリティ/権限管理/コンプライアンス
-    * AWS Certificate Manager（ACM）
-    * Directory Service
-    * GuardDuty
     * IAM
+    * Directory Service
+    * AWS Certificate Manager（ACM）
+    * GuardDuty
     * Inspector
     * Key Management Service（KMS）
     * Macie

@@ -6,6 +6,9 @@ https://qiita.com/leomaro7/items/e48d9941dab5b5f2a718
 
 ---
 ## RDS
+* AWSが提供するマネージドサービス
+* MySQL、MariaDB、PostgreSQL、Oracle、Microsoft SQL Severなどのデータベースエンジンから選択可能
+  - MySQLのストレージエンジンはInnoDB（MyISAMは選択できない）
 
 ### レプリケーションラグ
 * Amazon RDS for MySQLのレプリケーションで遅延が発生しているかどうかを確認する方法 | DevelopersIO (classmethod.jp)
@@ -15,7 +18,9 @@ https://qiita.com/leomaro7/items/e48d9941dab5b5f2a718
 
 ---
 ## Aurora
+* MySQLやPostgreSQL等と互換性がある分散型RDB
 * マルチAZで分散されたクラスタ構成により、高速・高性能なRDBを実現
+* クエリ処理量が多くOLTPで利用する業務用データベースに最適
 
 ### Auroraレプリカ
 * 他のリージョンに対してリードレプリカを構築可能
@@ -28,6 +33,10 @@ https://qiita.com/leomaro7/items/e48d9941dab5b5f2a718
 
 ---
 ## DynamoDB
+
+### DynamoDB Streams
+* DynamoDBの書き込み処理をトリガーにLambda関数を起動
+* Lambda関数は最大512MBまでデータを扱うことが可能
 
 ---
 ## Redshift

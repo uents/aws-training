@@ -1,10 +1,13 @@
 # マイグレーション
 
----
 ## DMS（Data Migration Service）
 データベースを短期間で安全にAWSに移行することを可能にするサービス
 
----
+## Snowball/Snowball Edge/Snowmobile
+* Snowball：ペタバイト規模のデータ移行。現在は非推奨
+* Snowball Edge：ペタバイト規模のデータ移行＋コンピューティングとストレージ機能
+* Snowmobile：エクサバイト規模のデータ移行
+
 ## VM Import/Export
 既存のオンプレにあるサーバを利用した仮想マシン群を、AWSにインポートおよびAWSからのエクスポートを可能にするサービス
 
