@@ -1,26 +1,53 @@
 # ネットワーク/コンテンツ配信
 
 ---
+## VPC（および関連機能）
+
+### VPCフローログ
+* ENI（Elastic Network Interface）ごとに送信元/先のトラフィックログを取得・収集
+* VPCフローログに伴う追加料金はなし
+* 例えば、EC2インスタンスへのCloudWatchエージェントを導入することで、CloudWatchによるログの中央管理を実現できる
+
+### IPフローティング
+* インスタンスの障害発生時にElastic IPを即時に別のインスタンスに付け替える機能
+* https://dev.classmethod.jp/articles/aws-cdp-floating-ip-pattern/
+
+---
+## Direct Connect
+https://aws.amazon.com/jp/directconnect/
+![](https://d1.awsstatic.com/Networking/direct-connect/SiteLink.f18c21ea71ea11fadc4d69e07acfc26d1208f31d.png)
+
+* AWSとオフィス・データセンターなどの物理拠点を専用線で繋ぐサービス
+* 接続速度は最大100Gbps。1Gbps/10Gbps/100GbpsのEtherポートを持つ専用線によりAWSとのリンクを確立
+* Direct ConnectロケーションとAWSまでの回線はAWS側で用意。ユーザー拠点からDirect Connectロケーションまでの回線はユーザー側で用意。（ただし、それを用意してくれるAPNパートナーもいる模様） https://atbex.attokyo.co.jp/blog/detail/9/
+
+---
+## Site-to-Site VPN
+* https://docs.aws.amazon.com/ja_jp/vpn/latest/s2svpn/VPC_VPN.html
+* AWSとオンプレ環境のVPN接続サービス
+* 回線はインターネットを利用。IPsecをサポート
+
+---
+## Transit Gateway
+
+---
 ## Route 53
-### Route 53の概要
-#### DNS
-* 権威サーバ
-* キャッシュサーバ
+* DNSの権威サーバの機能をマネジメント型でかんたんに提供
+* 主要機能
+  - ドメイン登録
+  - DNSルーティング
+  - ヘルスチェック
+  - ポリシーによるルーティング設定
+* 可用性100%のSLA。ユーザー側で冗長性の考慮が不要
+* （DNSのキャッシュサーバの機能は持たない）
 
-#### Route 53
-* 権威サーバの機能をマネジメント型でかんたんに提供
-* 主要機能：ドメイン登録/DNSルーティング/ヘルスチェック
-* ポリシーによるルーティング設定
-* 可用性100%のSLA（AWSが保証）
-* マネージドサービスのためユーザー側で冗長性の考慮が不要
-
-#### 利用方法
+### 利用方法
 1. Route 53にドメインを設定
 2. ドメイン名と同じホストゾーンを自動設定
 3. ホストゾーンにルーティング方法となるDNSレコードを作成
 4. トラフィックルーティングを設定
 
-#### ホストゾーン
+### ホストゾーン
 ドメイン（ex: example.com）とそのサブドメイン（ex: sub.example.com）のトラフィックのルーティングする方法についての情報を保持するコンテナ
 
 * パブリックホストゾーン
@@ -29,9 +56,8 @@
   * VPCに閉じたプライベートネットワークののDNSドメインレコードを管理するコンテナ
   * 1つのプライベートゾーンで複数のVPCに対応
 
-#### DNSレコード
-主なレコード種別。他のレコードタイプは
-https://docs.aws.amazon.com/ja_jp/Route 53/latest/DeveloperGuide/ResourceRecordTypes.html
+### DNSレコード
+主なレコード種別。他のレコードタイプは https://docs.aws.amazon.com/ja_jp/Route 53/latest/DeveloperGuide/ResourceRecordTypes.html
 
 | 種別 | 内容 |
 | --- | --- |
@@ -40,7 +66,7 @@ https://docs.aws.amazon.com/ja_jp/Route 53/latest/DeveloperGuide/ResourceRecordT
 | MX | メールの配送先（メールサーバ）のホスト名を定義
 | CNAME | 正規ホスト名に対する別名を定義
 
-#### Aliasレコード
+### Aliasレコード
 * Route 53固有の仮想リソースレコード
 * DNSクエリにAWSサービスのエンドポイントのIPアドレスを返答
 * メリット
@@ -49,7 +75,7 @@ https://docs.aws.amazon.com/ja_jp/Route 53/latest/DeveloperGuide/ResourceRecordT
   * Aliasレコードに対するクエリが無料。Route 53と連携したDNS Lookupを高速化
   * CloudFrontでのクエリ回数を削減
 
-#### トラフィックルーティング
+### トラフィックルーティング
 
 | ポリシー | 内容 |
 | --- | --- |
@@ -61,28 +87,33 @@ https://docs.aws.amazon.com/ja_jp/Route 53/latest/DeveloperGuide/ResourceRecordT
 | 位置情報ルーティング（Geolocation） | ユーザーのIPアドレスにより位置情報を特定し地域ごとに異なるレコードを返す |
 | 地理的近接性ルーティング | ユーザーとリソースの場所に基づいて地理的近接性ルールを作成してルーティング。AWSリソースを使用している場合はリソースを作成したリージョン、AWS以外のリソースを使用している場合はそのリソースの緯度・経度。トラフィックフローの利用が必要 |
 
-#### フェールオーバー構成
+> DNSフェイルオーバーは異なるリージョンへの切り替えも可能
+> https://dev.classmethod.jp/articles/route-53-dns-failover-ec2/
 
-| タイプ | 内容 |
-| --- | --- |
-| アクティブ/パッシブ | プライマリリソースをアクティブなリソースとしてルーティング。障害が発生した場合、セカンダリーのリソースへルーティング |
-| アクティブ/アクティブ | 複数のリソースをアクティブとしてルーティング。障害が発生した場合、正常なリソースにフェールバック |
+### 冗長構成（フェールオーバー構成）
 
-#### Route 53による地域制限
+| 方式 | 内容 | 実装 |
+| --- | --- | --- |
+| アクティブ/パッシブ | プライマリリソースをアクティブなリソースとしてルーティング。障害が発生した場合、セカンダリーのリソースへルーティング | フェールオーバールーティングポリシーを適用 |
+| アクティブ/アクティブ | 複数のリソースをアクティブとしてルーティング。障害が発生した場合、正常なリソースにフェールバック | **フェールオーバー以外の**ルーティングポリシーを適用（例えば、複数値回答ルーティング） |
+
+> フェールオーバー構成というと、フェイルオーバーの具体的な手法ではなく、冗長構成を問われていることがあるので注意
+
+### Route 53による地域制限
 * 位置情報ルーティングで実現可能
 * 地域を指定して配信先としての制限が可能
 * コンテンツ配布のローカライズやローカルでのバフォーマンス向ななどに応用
 
-#### トラフィックフロー
+### トラフィックフロー
 * トラフィックフローにより視覚的なフローでの複雑なポリシー設置が可能に
 
-#### アプリケーションリカバリーコントローラ
+### アプリケーションリカバリーコントローラ
 https://aws.amazon.com/jp/blogs/news/amazon-route-53-application-recovery-controller/
 
 * アクティブ/アクティブ構成以外でも最大限のフェールオーバー性能を実現可能に
 * 独立したセル単位でリソースをセットし、復旧グループを構成して準備状況をチェックする
 
-![](assets/application-recovery-controller.png)
+![](assets/route53/application-recovery-controller.png)
 
 * リカバリーコントローラと他のフェイルオーバー手段の比較
   * アクティブ/パッシブなフェイルオーバーのRTOを高めるためにリカバリーコントローラを利用する
@@ -98,7 +129,7 @@ https://aws.amazon.com/jp/blogs/news/amazon-route-53-application-recovery-contro
 > 
 > RPO（Recovery Point Objective）：障害発生時、過去の「どの時点まで」のデータを復旧させるか
 
-#### DNSファイアーウォール
+### DNSファイアーウォール
 Route 53 リソルバ経由のDNSクエリにもとづくサイトへの不正アクセスを制御し、DNSレベルの脅威を防ぐ
 
 | 機能 | 内容 |
@@ -113,8 +144,7 @@ Route 53 リソルバ経由のDNSクエリにもとづくサイトへの不正�
   * ネームサーバ：インターネット上でドメインとWebサーバやメールサーバを結びつけるための名前解決を行うサーバ
   * リソルバ：ドメイン名に対応づけられたIPアドレスを問われた際に、ドメイン名に関連づけられたネームサーバを指定して、名前解決を行うサーバ
 
-![](assets/name-resolve.svg)
-
+![](assets/route53/name-resolve.svg)
 
 ### Route 53 コンソール
 #### ドメインの登録
@@ -130,7 +160,6 @@ Route 53 リソルバ経由のDNSクエリにもとづくサイトへの不正�
     3. Route 53でネームサーバのレコードを確認
     4. 1のドメインポータルサイトでネームサーバを設定（3のレコードを登録）
         * => 上位のネームサーバに順次登録されていく（24hくらいかかる）
-
 
 #### ルーティングの設定
 * シンプルルーティング
@@ -154,11 +183,6 @@ Route 53 リソルバ経由のDNSクエリにもとづくサイトへの不正�
     2. レコードに対しターゲット、1で作成したヘルスチェックオプションを設定
        * ※ ヘルスチェックに失敗したターゲットはルーティングから除外される
 
-#### フェイルオーバー(アクティブ/アクティブ)の設定
-* 複数値回答ルーティングもフェイルオーバー(アクティブ/アクティブ)のひとつ
-* 以下、レイテンシールーティングでの設定
-
-
 ---
 ## CloudFront
 * HTMLファイル・CSS・画像・動画といった静的コンテンツをキャッシュし、オリジンサーバーの代わりに配信するCDN（Content Delivery Network）サービス
@@ -175,18 +199,7 @@ https://aws.amazon.com/jp/cloudfront/
 * オリジンサーバとして、S3（の静的ホスティング）・EC2・API Gateway・ELBを利用可能
 * また、オンプレミスのサーバも指定できるため、既存のシステム構成に変更を加えることなくCloudFrontをを導入することで、イベントなどによる一時的にはアクセス増に備えるといった使い方も
 
-
 ---
-## Direct Connect
-https://aws.amazon.com/jp/directconnect/
-![](https://d1.awsstatic.com/Networking/direct-connect/SiteLink.f18c21ea71ea11fadc4d69e07acfc26d1208f31d.png)
-
-* AWSとオフィス・データセンターなどの物理拠点を専用線で繋ぐサービス
-* 接続速度は最大100Gbps。1Gbps/10Gbps/100GbpsのEtherポートを持つ専用線によりAWSとのリンクを確立
-* Direct ConnectロケーションとAWSまでの回線はAWS側で用意。ユーザー拠点からDirect Connectロケーションまでの回線はユーザー側で用意。（ただし、それを用意してくれるAPNパートナーもいる模様） https://atbex.attokyo.co.jp/blog/detail/9/
-
----
-## Site-to-Site VPN
-* https://docs.aws.amazon.com/ja_jp/vpn/latest/s2svpn/VPC_VPN.html
-* AWSとオンプレ環境のVPN接続サービス
-* 回線はインターネットを利用。IPsecをサポート
+## AppSync
+* https://aws.amazon.com/jp/appsync/
+* GraphQL APIの開発を容易にするフルマネージドサービス
