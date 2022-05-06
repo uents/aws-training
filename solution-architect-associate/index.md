@@ -39,6 +39,7 @@ https://d1.awsstatic.com/ja_JP/training-and-certification/docs-sa-assoc/AWS-Cert
     * SQS
     * (SES)
     * (MQ)
+    * Step Functions
 * コンピューティング
     * EC2
     * Elastic Load Balancing
@@ -64,7 +65,7 @@ https://d1.awsstatic.com/ja_JP/training-and-certification/docs-sa-assoc/AWS-Cert
     * CloudWatch
     * Config
     * EventBridge
-    * AWS Origanizations
+    * AWS Organizations
     * Resource Access Manager
     * Systems Manager
     * Trusted Advisor
@@ -87,10 +88,10 @@ https://d1.awsstatic.com/ja_JP/training-and-certification/docs-sa-assoc/AWS-Cert
     * API Gateway
     * AppSync
 * セキュリティ/権限管理/コンプライアンス
-    * AWS Certificate Manager（ACM）
-    * Directory Service
-    * GuardDuty
     * IAM
+    * Directory Service
+    * AWS Certificate Manager（ACM）
+    * GuardDuty
     * Inspector
     * Key Management Service（KMS）
     * Macie
