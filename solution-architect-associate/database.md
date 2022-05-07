@@ -16,6 +16,11 @@ https://qiita.com/leomaro7/items/e48d9941dab5b5f2a718
 * RDS for Oracle インスタンスのリードレプリカによるレプリケーションラグのトラブルシューティング (amazon.com)
   - https://aws.amazon.com/jp/premiumsupport/knowledge-center/rds-oracle-troubleshoot-replication-lags/
 
+### RDS Proxy
+* https://aws.amazon.com/jp/rds/proxy/
+* アプリケーションとRDSデータベースの仲介役として機能
+* 必要となるデータベースへのコネクションプールを確立・管理し、アプリケーションからのDB接続を少なく抑える機能
+
 ---
 ## Aurora
 * MySQLやPostgreSQL等と互換性がある分散型RDB
