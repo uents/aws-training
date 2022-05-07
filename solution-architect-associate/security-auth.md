@@ -17,7 +17,9 @@ https://aws.amazon.com/jp/directoryservice/
 * Active Directory Connector
   * Micrsoft Active Diectoryへのリクエストを処理するゲートウェイサービス
 
-
+---
+## CloudHSM
+* HSMはゼロ化してキーを失ってしまうと、コピーを有していない場合は新しいキーは取得不可能となる
 
 ---
 ## STS（Security Token Service）
