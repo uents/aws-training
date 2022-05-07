@@ -49,11 +49,11 @@ https://d1.awsstatic.com/ja_JP/training-and-certification/docs-sa-assoc/AWS-Cert
     * Fargate
     * Lambda
 * データベース
+    * RDS
     * Aurora
+    * Redshift
     * DynamoDB
     * ElastiCache
-    * RDS
-    * Redshift
 * マネジメント/ガバナンス
     * プロビジョニング
         * Elastic Beanstalk
@@ -79,8 +79,8 @@ https://d1.awsstatic.com/ja_JP/training-and-certification/docs-sa-assoc/AWS-Cert
     * VM Import/Export
 * ネットワーク/コンテンツ配信
     * VPC（および関連機能）
-    * Direct Connect
     * Site-to-Site VPN
+    * Direct Connect
     * Transit Gateway
     * Route 53
     * CloudFront
@@ -94,6 +94,7 @@ https://d1.awsstatic.com/ja_JP/training-and-certification/docs-sa-assoc/AWS-Cert
     * GuardDuty
     * Inspector
     * Key Management Service（KMS）
+    * CloudHSM
     * Macie
     * Secrets Manager
     * Shield

@@ -10,11 +10,20 @@ https://qiita.com/leomaro7/items/e48d9941dab5b5f2a718
 * MySQL、MariaDB、PostgreSQL、Oracle、Microsoft SQL Severなどのデータベースエンジンから選択可能
   - MySQLのストレージエンジンはInnoDB（MyISAMは選択できない）
 
+### マルチAZ
+* 別AZにセカンダリーDBを作成することで、BCP対策が可能に
+* 別リージョンにセカンダリーDBを作成することはできない（リードレプリカなら別リージョンへも可能）
+
 ### レプリケーションラグ
 * Amazon RDS for MySQLのレプリケーションで遅延が発生しているかどうかを確認する方法 | DevelopersIO (classmethod.jp)
   - https://dev.classmethod.jp/articles/how-to-know-how-late-a-replica-in-rds-for-mysql-ver-5-series/
 * RDS for Oracle インスタンスのリードレプリカによるレプリケーションラグのトラブルシューティング (amazon.com)
   - https://aws.amazon.com/jp/premiumsupport/knowledge-center/rds-oracle-troubleshoot-replication-lags/
+
+### RDS Proxy
+* https://aws.amazon.com/jp/rds/proxy/
+* アプリケーションとRDSデータベースの仲介役として機能
+* 必要となるデータベースへのコネクションプールを確立・管理し、アプリケーションからのDB接続を少なく抑える機能
 
 ---
 ## Aurora
@@ -29,24 +38,15 @@ https://qiita.com/leomaro7/items/e48d9941dab5b5f2a718
 * マスターに障害が発生した場合、リーダーがマスターに昇格することでフェイルオーバーを実現。（他のRDSにはない機能）
 
 ---
-## ElastiCache
-
----
-## DynamoDB
-
-### DynamoDB Streams
-* DynamoDBの書き込み処理をトリガーにLambda関数を起動
-* Lambda関数は最大512MBまでデータを扱うことが可能
-
-### DynamoDB Auto Scaling
-* Auto Scalingにより、負荷に応じてWCU/RCUのスループットを自動調整
----
 ## Redshift
-### Redshiftのアーキテクチャ
-出展： https://gihyo.jp/dev/serial/01/redshift/0005
+* マネージド型のDWH（データウェアハウジング）サービス
+* 多くのソースからデータを収集し、データ全体の関係性や傾向を理解するのに役立つ機能を提供
+* BI（ビジネスインテリジェンス）アプリケーションのの用途で活用
 
+### Redshiftのアーキテクチャ
 ![](https://gihyo.jp/assets/images/dev/serial/01/redshift/0005/thumb/TH400_001.jpg)
 
+* https://gihyo.jp/dev/serial/01/redshift/0005
 * リーダーノード、複数のコンピュートノードからクラスタを構成
 * 複数のコンピュートノードをまたがずに処理が完結できる分散構成をいかに作れるかがポイント
 
@@ -71,3 +71,43 @@ https://qiita.com/leomaro7/items/e48d9941dab5b5f2a718
 ### クロスリージョンスナップショット
 * クラスタのプライマリリージョンでスナップショットが作成されると、セカンダリリージョンにコピーされる
 * プライマリリージョンのクラスタがダウンした場合、セカンダリリージョンでクラスタを即座に復元できる
+
+
+
+---
+## DynamoDB
+サーバレスのキーバリューデータベースサービス
+* プロビジョニング、パッチ適用、管理等が不要
+* 自動的にスケーリング
+
+### DynamoDB Streams
+* DynamoDBの書き込み処理をトリガーにLambda関数を起動
+* Lambda関数は最大512MBまでデータを扱うことが可能
+
+### DynamoDB Accelerator（DAX）
+* インメモリキャッシュを利用しクエリを高速化（ms→usオーダー）
+
+### DynamoDB Auto Scaling
+* Auto Scalingにより、負荷に応じてWCU/RCUのスループットを自動調整
+
+### DynamoDBとRDSの違い
+
+| 項目	| DynamoDB | RDS |
+| --- | --- | --- |
+| タイプ | 非リレショーナル | リレーショナル |
+| データ構造 | Key-Value Store | SQL |
+| サービス形態 | サーバレス | マネージド |
+| スケーリング | 水平スケーリング | 垂直スケーリング[※1] |
+| トランザクション | 結果整合性を保証 | ACID準拠 |
+| アクセス性能 | 大量のアクセスでも性能維持 | 大量のアクセスには不向き[※2] |
+
+* [※1] リードレプリカの増設によりある程度は対応可能
+* [※2] RDS Proxyにコネクションプールを管理させることによりある程度は対応可能
+
+---
+## ElastiCache
+* インメモリ・データストアサービス
+* RedisとMemcachedのマネージドサービスとして使用可能
+* 具体的な用途
+  + アプリケーションのセッション情報
+  + DBのクエリ結果のキャッシュ

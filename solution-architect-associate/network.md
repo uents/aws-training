@@ -50,15 +50,6 @@
 * https://dev.classmethod.jp/articles/aws-cdp-floating-ip-pattern/
 
 ---
-## Direct Connect
-https://aws.amazon.com/jp/directconnect/
-![](https://d1.awsstatic.com/Networking/direct-connect/SiteLink.f18c21ea71ea11fadc4d69e07acfc26d1208f31d.png)
-
-* AWSとオフィス・データセンターなどの物理拠点を専用線で繋ぐサービス
-* 接続速度は最大100Gbps。1Gbps/10Gbps/100GbpsのEtherポートを持つ専用線によりAWSとのリンクを確立
-* Direct ConnectロケーションとAWSまでの回線はAWS側で用意。ユーザー拠点からDirect Connectロケーションまでの回線はユーザー側で用意。（ただし、それを用意してくれるAPNパートナーもいる模様） https://atbex.attokyo.co.jp/blog/detail/9/
-
----
 ## Site-to-Site VPN
 * https://docs.aws.amazon.com/ja_jp/vpn/latest/s2svpn/VPC_VPN.html
 * AWSとオンプレ環境のVPN接続サービス
@@ -69,7 +60,35 @@ https://aws.amazon.com/jp/directconnect/
 ![](https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2019/05/shibata-rtx830-create-vpn-site-00-2.png)
 
 ---
+## Direct Connect
+* https://aws.amazon.com/jp/directconnect/
+* AWSとオフィス・データセンターなどの物理拠点を専用線で繋ぐサービス
+* 接続速度は最大100Gbps。1Gbps/10Gbps/100GbpsのEtherポートを持つ専用線によりAWSとのリンクを確立
+
+### Direct Connectローケーション
+![](https://oji-cloud.net/wp-content/uploads/2019/12/DirectConnect%E6%A7%8B%E6%88%90%E5%9B%B3-1-710x338.png)
+
+* ユーザー側はAWSと直接接続するわけではなく、Direct Connectローケーションを介してAWとと接続する
+* Direct ConnectロケーションとAWSまでの回線はAWS側で用意。ユーザー拠点からDirect Connectロケーションまでの回線はユーザー側で用意
+  + ただし、それを用意してくれるAPNパートナーもいる模様。 https://atbex.attokyo.co.jp/blog/detail/9/
+
+---
 ## Transit Gateway
+![](https://www.fujitsu.com/jp/imagesgig5/Constitution2_tcm102-6002682_tcm102-2750236-32.png)
+
+複数のVPCとオンプレミスを中央ハブを介して接続するサービス
+
+### Trainsit GatewayとDirect Connectの相違点
+* https://www.fujitsu.com/jp/solutions/infrastructure/construction/multi-cloud/aws/event-column/aws-transit-gateway.html
+* 多対多の拠点接続が必要な場合はTransit Gatewayの方がメリットが大きい
+
+| | Transit Gateway | Direct Connect |
+| --- | --- | --- |
+| VPC-VPC間の通信 | ○ | × |
+| オンプレ-オンプレ間の通信 | ○ | × |
+| VPC-オンプレ間の通信 | ○ | ○ |
+| 複数のVPCの割り当て | ○ | ○ |
+| 同じOrganizationsに属する必要性 | なし | なし |
 
 ---
 ## Route 53
@@ -103,10 +122,12 @@ https://aws.amazon.com/jp/directconnect/
 | 種別 | 内容 |
 | --- | --- |
 | SOA | ドメインのDNSサーバ/ドメイン管理者のメールアドレス/シリアル番号などを保持し、ゾーン転送時に情報が更新されているかの判断に利用
-| A | ホスト名とIPv4アドレスの関連づけを定義
+| A | ホスト名とIPv4アドレスの関連づけを定義。例： `1.1.1.1` ⇄ `example.com`）
 | AAAA | ホスト名とIPv6アドレスの関連づけを定義
+| CNAME | 正規ホスト名に対する別名を定義。例： `www.example.com` ⇄ `example.com`
+| NS | ゾーン情報を管理するネームサーバを指定。例： `example.com` ⇄ `ns-604.awsdns-11.net`, `ns-283.awsdns-35.com`, `ns-226.awsdns.co.jp`
 | MX | メールの配送先（メールサーバ）のホスト名を定義
-| CNAME | 正規ホスト名に対する別名を定義
+
 
 ### Aliasレコード
 * Route 53固有の仮想リソースレコード
@@ -132,8 +153,13 @@ https://aws.amazon.com/jp/directconnect/
 | 位置情報ルーティング（Geolocation） | ユーザーのIPアドレスにより位置情報を特定し地域ごとに異なるレコードを返す |
 | 地理的近接性ルーティング | ユーザーとリソースの場所に基づいて地理的近接性ルールを作成してルーティング。AWSリソースを使用している場合はリソースを作成したリージョン、AWS以外のリソースを使用している場合はそのリソースの緯度・経度。トラフィックフローの利用が必要 |
 
+https://zenn.dev/seyama/articles/02118b0914183e にも詳細な記述がある。
+
 > DNSフェイルオーバーは異なるリージョンへの切り替えも可能
 > https://dev.classmethod.jp/articles/route-53-dns-failover-ec2/
+
+> また、加重ルーティングや複数値回答ルーティングを利用して、単一のDNSに対し複数のリソースを紐づけることで負荷分散を行うこともできる
+> https://qiita.com/hotta/items/c43b547f5786731278de
 
 ### 冗長構成（フェールオーバー構成）
 
@@ -243,6 +269,10 @@ https://aws.amazon.com/jp/cloudfront/
 * 配信処理コストを抑制するために、エッジロケーション側でファイル圧縮処理を行うことができる
 * オリジンサーバとして、S3（の静的ホスティング）・EC2・API Gateway・ELBを利用可能
 * また、オンプレミスのサーバも指定できるため、既存のシステム構成に変更を加えることなくCloudFrontをを導入することで、イベントなどによる一時的にはアクセス増に備えるといった使い方も可能
+
+### Original Access Identity（OAI）
+* S3へのアクセスをCloudFrontからのみに限定することができる機能
+* コンテンツにアクセス可能な日時やIPアドレスの制御が可能になる
 
 ---
 ## Global Accelerator

@@ -19,7 +19,8 @@
 | HDD | スループット最適化HDD（st1） | ビックデータ分析、DWH、ログ分析 | 500GB~16TB |
 | | コールドHDD（sc1） | アクセス頻度が低いデータアーカイブ | 1GB~1TB |
 
-> * コスト最適を問われたらHDD、コスト効率を問われたらSSDとなることが多そう
+> * I/0負荷が集中するトランザクションワークロードの場合は、基本的にはSSDを選択。稼働するプロセスが少ない一方で大規模なビッグデーし処理が必要な場合はスループット最適化HDDを選択
+> * また、基本的にコスト最適を問われたらHDD、コスト効率を問われたらSSDとなることが多そう
 > * また、EBSボリュームに対して暗号化設定を行うと、データを暗号化できる
 
 ### EBSスナップショット
@@ -30,7 +31,7 @@
 
 
 ### Data Lifecycle Manager (DLM)
-DLMを利用することでEBSのスナップショット作成や削除のスケジューリングが可能
+* EBSのスナップショット作成や削除のスケジューリングを設定
 
 ---
 ## S3/Glacier
@@ -126,15 +127,30 @@ Glacierのストレージクラス
 ### S3 Select
 S3内で直接SQLクエリを実行し必要なオブジェクトのサブセットのみを取得できる
 
+### クロスリージョンレプリケーション
+S3のオブジェクトを別リージョンにレプリケーションする機能。
+レプリケーションなので完全同期となる。
+
+* クロスリージョンレプリケーションの実行方法
+  1. レプリケート元のバケットの所有者は自分のアカウントに対しての送信元/先のリージョンを有効に
+  2. レプリケート元/先でバージョニングを有効に
+  3. レプリケート元バケットのオブジェクトをレプリケート先のバケットにレプリケートするアクセス許可を設定
+  4. レプリケート元のバケット所有者がそのバケット内のオブジェクトを所有していない場合、オブジェクト所有者はACLによりバケット所有者への読み出し権限（READ,READ_ACP）を付与
+  5. レプリケート元のバケットでオブジェクトロックが有効になっている場合、レプリケート先でもオブジェクトロックを有効にする
+
 ---
 ## EFS
+![](https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2020/08/551f33494bf9c1c2185e8d3cfed2eb03-768x649.png)
+
 * EC2・Lambdaなど複数のクライアントから同時アクセスが可能なファイルストレージサービス
 * クライアントからのEFSへの接続は、一般的なNFS（NFSv4プロトコル。POSIX準拠）をサポートしているため、NFSクライアントさえあれば特別なツールやライブラリは不要
 * EFSのマウント先としてAWSおよびオンプレのリソースで使用可能
   + https://docs.aws.amazon.com/ja_jp/efs/latest/ug/how-it-works.html
-* WindowsベースのクライアントではeFSは使用できない。
+  + マウント先は**マウントターゲット**というENIで定義
+* **WindowsベースのクライアントではEFSは使用できない**。
   ただし、代替サービスとしてAmazon FSx for Windows File Serverが利用できる（FSxはNTFSファイルシステム）
 
+---
 ## FSx (for Windows File Server)
 https://aws.amazon.com/jp/fsx/windows/
 ![](https://d1.awsstatic.com/pdp-how-it-works-assets/Product-Page-Diagram_Managed-File-System-How-it-Works_Updated@2x.c0c4e846c0fca27e8f43bd1651883b21b4cc1eec.png)
@@ -143,6 +159,7 @@ https://aws.amazon.com/jp/fsx/windows/
 * SMBプロトコルを使って最大数千台のコンピューティングインスタンスからアクセス可能なファイルシステムを提供
 * Windows File Server以外に、NetApp ONTAP、OpenZFS、Lustre向けのサービスもある https://aws.amazon.com/jp/fsx/
 
+---
 ## Storage Gateway
 https://aws.amazon.com/jp/storagegateway/
 ![](https://d1.awsstatic.com/pdp-how-it-works-assets/product-page-diagram_AWS-Storage-Gateway_HIW@2x.6df96d96cdbaa61ed3ce935262431aabcfb9e52d.png)
