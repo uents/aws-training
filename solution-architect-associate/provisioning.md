@@ -4,8 +4,10 @@
 * ウェブアプリケーションの構成管理サービス
 * 構築できる構成は大きくは以下の2つ
   1. Webサーバ構成： ELB+Auto Scaling+EC2
-  2. Batchワーカー構成： SQS+Auto Scaling+EC2
+  2. ワーカー構成： SQS+Auto Scaling+EC2
 * 自動バッチ適用、キャパシティのプロビジョニング、負荷分散、Auto Scaling、アプリケーションのヘルスモニタリング、などのデプロイタスクを自動化する
+
+> 1日1回程度のバッチ処理であれば、ELastic BenastalkではなくAWS Batchで構成する選択肢もある
 
 ## OpsWorks
 * Chef/Puppetを利用したインフラ構成管理サービス
