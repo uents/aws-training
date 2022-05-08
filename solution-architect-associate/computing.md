@@ -88,6 +88,8 @@ RIの様に長期（1年or3年）の期間コミットが不要な分、柔軟�
 * Windows on EC2で動作するWindowsのエージェント
 * Linuxのcloud-initに相当するもので、Windowsの起動時に各種設定を行なってくれる
 
+---
+## Elastic Load Balancing
 
 ---
 ## Auto Scaling

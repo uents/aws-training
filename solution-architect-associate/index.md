@@ -1,5 +1,6 @@
 
-# 1. AWS試験の概要
+# SAA試験の概要
+SAA-C02 AWS Certified Solutions Architect 
 
 ## 試験の概要
 https://aws.amazon.com/jp/certification/certified-solutions-architect-associate/
@@ -11,18 +12,18 @@ https://aws.amazon.com/jp/certification/certified-solutions-architect-associate/
 * 合格ライン：720点（得点範囲：100~1000点）
 
 ## 出題範囲
+https://d1.awsstatic.com/ja_JP/training-and-certification/docs-sa-assoc/AWS-Certified-Solutions-Architect-Associate_Exam-Guide.pdf
 
-| 分野 | 試験の割合 |
+| 分野 | 比率 |
 |--|--|
-| 1.弾力性に優れたアーキテクチャ設計 | 30% |
+| 1.弾力性（レジリエント）に優れたアーキテクチャ設計 | 30% |
 | 2.高パフォーマンスなアーキテクチャ設計 | 28% |
-| 3.セキュアなアプリケーション/アーキテクチャ設計 | 24% |
+| 3.セキュアなアプリケーションとアーキテクチャ設計 | 24% |
 | 4.コストを最適化したアーキテクチャ設計 | 18% |
 
 ![](assets/exam-coverage.svg)
 
 ## 対象サービス
-https://d1.awsstatic.com/ja_JP/training-and-certification/docs-sa-assoc/AWS-Certified-Solutions-Architect-Associate_Exam-Guide.pdf
 
 * アナリティクス
     * Athena
@@ -63,7 +64,7 @@ https://d1.awsstatic.com/ja_JP/training-and-certification/docs-sa-assoc/AWS-Cert
     * Backup
     * CloudTrail
     * CloudWatch
-    * Config
+    * AWS Config
     * EventBridge
     * AWS Organizations
     * Resource Access Manager
