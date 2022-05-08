@@ -1,7 +1,9 @@
 # アナリティクス
 
-## Kinesis Streams
+## Kinesis Data Streams
 データレコードはKinesisストリームに追加されてから、デフォルトで24h以内にアクセスできるよう設定されている
+
+## Kinesis Data Firehose
 
 ## Kinesis Analytics
 * ストリーミングデータを標準SQLでリアルタイムにデータ処理

@@ -18,7 +18,7 @@
 | 汎用 | A1,M5,T3 | インスタンスのリソースを同じ割合で消費するアプリケーションに最適 | 
 | コンピューティング最適化 | C5,C6g | バッチ処理ワークロード、メディアトランスコード、hpcなどで最適 |
 | メモリ最適化 | X1,R5,z1d | メモリ内の大きなデータセットを処理するワークロードに最適 | 
-| ストレージ最適化 | H1,D2,I3 | ローカルストレージの大規模データセットに対する高いシーケンシャル読み取り/書き出しに最適 |
+| ストレージ最適化 | H1,D2,I3en | ローカルストレージの大規模データセットに対する高いシーケンシャル読み取り/書き出しに最適<br>・H1,D2はHDDベース<br>・I3,I3enはSSDベース（大量のIOPSに対応できる） |
 | 高速化コンピューティング | P3,G4(GPU),F1(FPGA) | ハードウェアアクセアクセラレータを用いた計算処理に最適 |
 
 ### ユーザーデータの利用
@@ -113,6 +113,17 @@
 * https://dev.classmethod.jp/articles/cm-advent-calendar-2015-aws-re-entering-ec2-windows/#windows-ec2config
 * Windows on EC2で動作するWindowsのエージェント
 * Linuxのcloud-initに相当するもので、Windowsの起動時に各種設定を行なってくれる
+
+### EC2のログ
+* 稼働状況のログ
+  - CloudWatchエージェントをEC2インスタンスに導入しCloudWatch Logsに自動転送
+* トラフィックのログ
+  - フローログを有効にすることにより、ネットワークのトラフィックログをCloudWatchで取得できる
+
+## BYOIP
+* EC2インスタンスで自前のIPアドレスを利用する
+* ROA（Route Origin Authorization）という認証を通す
+  * https://fluid-27.hatenablog.com/entry/2021/07/16/204216
 
 ---
 ## Elastic Load Balancing
