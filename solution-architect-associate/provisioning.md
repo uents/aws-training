@@ -2,6 +2,7 @@
 
 ## Elastic Beanstalk
 * ウェブアプリケーションの構成管理サービス
+* ECSなどのDockerサービスと連携することで、Dokcerからウェブアプリケーションをデプロイすることもできる
 * 構築できる構成は大きくは以下の2つ
   1. Webサーバ構成： ELB+Auto Scaling+EC2
   2. ワーカー構成： SQS+Auto Scaling+EC2

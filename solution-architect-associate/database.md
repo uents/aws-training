@@ -25,6 +25,10 @@ https://qiita.com/leomaro7/items/e48d9941dab5b5f2a718
 * アプリケーションとRDSデータベースの仲介役として機能
 * 必要となるデータベースへのコネクションプールを確立・管理し、アプリケーションからのDB接続を少なく抑える機能
 
+### IAMデータベース認証
+* データベース認証をIAMユーザーまたはIAMロール認証で行う
+* https://blog.serverworks.co.jp/rds-iamdblogin
+
 ---
 ## Aurora
 * MySQLやPostgreSQL等と互換性がある分散型RDB
@@ -66,7 +70,10 @@ https://qiita.com/leomaro7/items/e48d9941dab5b5f2a718
   - ノード内のスライス数はコンピューのノードのインスタンスタイプによって異なる
 
 ### 拡張VPCルーティング
-* VPC内にデータ移動を制御する機能
+* https://docs.aws.amazon.com/ja_jp/redshift/latest/mgmt/enhanced-vpc-routing.html
+* VPCに出入りするRedshiftクラスタのトラフィックを監視することができる
+  * Redshiftはクラスタとデータリポジトリ間のすべてのCOPY,UPLOADトラフィックがVPCを通るように強制し、VPCフローログを使って監視する
+* さらに、VPC機能やVPCエンドポイント、IGWなどの標準的なVPCの機能も使用することができる
 
 ### クロスリージョンスナップショット
 * クラスタのプライマリリージョンでスナップショットが作成されると、セカンダリリージョンにコピーされる
@@ -84,11 +91,12 @@ https://qiita.com/leomaro7/items/e48d9941dab5b5f2a718
 * DynamoDBの書き込み処理をトリガーにLambda関数を起動
 * Lambda関数は最大512MBまでデータを扱うことが可能
 
-### DynamoDB Accelerator（DAX）
-* インメモリキャッシュを利用しクエリを高速化（ms→usオーダー）
-
 ### DynamoDB Auto Scaling
 * Auto Scalingにより、負荷に応じてWCU/RCUのスループットを自動調整
+
+### DynamoDB Accelerator（DAX）
+* インメモリキャッシュを利用しクエリを高速化（ms→usオーダー）
+* インメモリキャッシュが高コストのため、「コスト最適」を求められた場合はDynamoDB Auto Scalingを選択する
 
 ### DynamoDBとRDSの違い
 
