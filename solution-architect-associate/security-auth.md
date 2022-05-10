@@ -1,4 +1,54 @@
-# セキュリティ/権限管理/コンプライアンス
+# セキュリティ
+セキュリティの主要な柱
+* データ保護
+* 権限管理
+* インフラ保護
+* 検出制御
+
+---
+# データの保護
+## KMS
+S3や多くのデータベースサービスに統合されており、暗号化を容易に実施できる
+* S3
+  * サーバサイド暗号化/クライアントサイド暗号化を活用
+* RDS
+  * セキュリティグループによるトラフィックのアクセス制御
+  * SSL/TLSによるアプリ-DB間の通信暗号化
+  * 暗号化オプションにより保管データを暗号化
+
+### KMSのモデル
+* カスタマーキー（CMK）
+  * AWS側の管理するマスターキー
+  * 暗号化キーを管理する
+* データキー（カスタマーデータキー、暗号化キー）
+  * 実際のデータの暗号化に利用するキー
+  * データキー自体はKMSで生成され、CMKで暗号化される
+* エンベロープ暗号化
+  * CMKで暗号化したデータキーを利用して、データを暗号化する方式
+  * （CMKそのものは暗号化せずに運用）
+
+## CloudHSM
+* 専用ハードウェアモジュール（HSM）により暗号化キーを保護するサービス
+* KMSの場合はAWSサービス（ある意味共有のサーバ）に対し、CloudHSMクラスタはユーザー専用であるため、VPC内にクラスタを作成する必要がある
+* KMSよりより厳しい暗号化要件に対応することが可能
+
+> HSMはゼロ化してキーを失ってしまうと、コピーを有していない場合は新しいキーは取得不可能となる
+
+---
+# 権限管理
+AWS責任共有モデルによる責務分担。ユーザー側の責任範囲は、
+* 構築したアプリケーション
+* アクセス権限（ユーザーアクセス、ロールベースのアクセス）
+* ユーザーが利用するAWSサービス
+
+具体的には、
+* 構築したアプリケーションのセキュリティ対応
+* OS/ミドルウェアの脆弱性対応
+* IAMによるアカウント管理・パスワードルール
+* セキュリティグループの設定等によるトラフィックの保護
+* 通信トラフィックの暗号化・保有しているデータの暗号化
+
+一方、ハードウェア、ネットワークインフラ、データセンターはAWS側の責任
 
 ## IAM
 ### タグを条件としたIAMポリシー
@@ -9,19 +59,6 @@
 * https://qiita.com/ijin/items/8c53735ee5671cadbf2c
 * IAMポリシーでEC2インスタンス等のリソースタグを条件に加えることで、例えば本番環境/開発環境ごとに運用ポリシーを変えることが可能に
 
----
-## Directory Service
-https://aws.amazon.com/jp/directoryservice/
-![](https://d1.awsstatic.com/Products/product-name/diagrams/directory_service_howitworks.80bfccbf2f5d1d63558ec3c086aff247147258f1.png)
-
-* Active Directory Connector
-  * Micrsoft Active Diectoryへのリクエストを処理するゲートウェイサービス
-
----
-## CloudHSM
-* HSMはゼロ化してキーを失ってしまうと、コピーを有していない場合は新しいキーは取得不可能となる
-
----
 ## STS（Security Token Service）
 限定的かつ一時的にセキュリティ認証情報を提供するサービス
 
@@ -38,10 +75,54 @@ https://aws.amazon.com/jp/directoryservice/
 > 参考リンク
 > https://qiita.com/fjisdahgaiuerua/items/c8183dc19e95d9e13d4b
 
+## Directory Service
+https://aws.amazon.com/jp/directoryservice/
+![](https://d1.awsstatic.com/Products/product-name/diagrams/directory_service_howitworks.80bfccbf2f5d1d63558ec3c086aff247147258f1.png)
+
+ディレクトリサービス：ユーザーに関わる各種情報を保管してユーザー認証を実現する仕組み
+
+* Active Directory Connector
+  * Micrsoft Active Diectoryへのリクエストを処理するゲートウェイサービス
+
+## Cognito
+シンプルでセキュアなユーザーのサインアップ・サインイン、
+およびアクセスコントロールをアプリケーションに実装
+* モバイルアプリのSAML認証
+* API Gatewayのセッションの認証
+
 ---
+# インフラ保護
+## VPC
+* サブネットの適切な分割
+* VPCのアクセス制御
+  * インスタンス単位の制御：セキュリティグループ
+  * ネットワーク単位の制御：ネットワークACL
+
+---
+# 検出制御
+監視・モニタリングを継続的に実施してセキュリティを高める
+
+## CloudTrail
+**AWSユーザー**の行動ログを取得し、ガバナンス、コンプライアンス、
+および運用とリスクの監査を行えるように支援
+
+## CloudWatch
+**AWSリソース**と**AWSで実行するアプリケーション**に対して、
+様々なメトリクスやログを収集・追跡するモニタリングサービス
+
+## GuardDuty
+AWS上で悪意のある操作や不正な動作を継続的にモニタリングする脅威検出サービス
+
+## Inpsector
+自動的にアプリケーションを検証し、その露出・脆弱性・ベストプラクティスからの逸断状況を確認し、セキュリティ評価を実施するサービス
+
 ## WAF（Web Application Firewall）
 https://aws.amazon.com/jp/waf/
-
 ![](https://d1.awsstatic.com/products/WAF/product-page-diagram_APIv2-AWS-WAF_How-it-Works-2x.1cafa052deabb5ca8500ce9565209f0f97725482.png)
 
+可能性、セキュリティ侵害、リソースの過剰消費といった一般的なウェブの脆弱性から、ウェブアプリケーションまたはAPIを保護する、ウェブアプリケーションファイアウォール。
 
+## Shield
+* 分散サービス妨害（DDoS）に対するマネージド型の保護サービス
+* Shieldにはスタンダード・アドバンスドの2つの階層があり、サポート範囲が異なる
+  * CloudFrontを使用する際は、自動的にShield Standardが適用される

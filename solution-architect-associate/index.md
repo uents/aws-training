@@ -62,7 +62,6 @@ https://d1.awsstatic.com/ja_JP/training-and-certification/docs-sa-assoc/AWS-Cert
         * CloudFormation
         * SAM
     * Backup
-    * CloudTrail
     * CloudWatch
     * AWS Config
     * EventBridge
@@ -88,19 +87,26 @@ https://d1.awsstatic.com/ja_JP/training-and-certification/docs-sa-assoc/AWS-Cert
     * Global Accelerator
     * API Gateway
     * AppSync
-* セキュリティ/権限管理/コンプライアンス
-    * IAM
-    * Directory Service
-    * AWS Certificate Manager（ACM）
-    * GuardDuty
-    * Inspector
-    * Key Management Service（KMS）
-    * CloudHSM
-    * Macie
-    * Secrets Manager
-    * Shield
-    * Single Sign-On
-    * WAF
+* セキュリティ/コンプライアンス
+    * データ保護
+        * Key Management Service（KMS）
+        * CloudHSM
+        * AWS Certificate Manager（ACM）
+    * 権限管理
+        * IAM
+        * Security Token Service（STS）
+        * Directory Service
+        * Cognito
+        * Single Sign-On
+    * インフラ保護
+        * (VPC)
+    * 検出制御
+        * CloudTrail
+        * (CloudWatch)
+        * GuardDuty
+        * Inspector
+        * WAF
+        * Shield
 * ストレージ
     * S3/Glacier
     * EBS
