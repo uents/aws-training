@@ -63,12 +63,12 @@ https://d1.awsstatic.com/ja_JP/training-and-certification/docs-sa-assoc/AWS-Cert
         * SAM
     * Backup
     * CloudWatch
-    * AWS Config
     * EventBridge
     * AWS Organizations
     * Resource Access Manager
     * Systems Manager
     * Trusted Advisor
+    * AWS Config
 * マイグレーション
     * DMS
     * DataSync
@@ -107,6 +107,7 @@ https://d1.awsstatic.com/ja_JP/training-and-certification/docs-sa-assoc/AWS-Cert
         * Inspector
         * WAF
         * Shield
+        * X-Ray
 * ストレージ
     * S3/Glacier
     * EBS
