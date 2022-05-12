@@ -81,8 +81,13 @@ https://aws.amazon.com/jp/directoryservice/
 
 ディレクトリサービス：ユーザーに関わる各種情報を保管してユーザー認証を実現する仕組み
 
-* Active Directory Connector
+* Simple AD
+  * AWS側にフルマネージ型のディレクトリを新規に作成
+* AD Connector
   * Micrsoft Active Diectoryへのリクエストを処理するゲートウェイサービス
+  * IAMと組み合わせることで、AWSリソースにアクセスできるユーザーをMicrosoft ADで認証できる
+* Managed Microsoft AD
+  * AWS側にMicrosoft Acitive Directoryとの互換性があるフルマネージド方のADを作成
 
 ## Cognito
 シンプルでセキュアなユーザーのサインアップ・サインイン、
@@ -126,3 +131,9 @@ https://aws.amazon.com/jp/waf/
 * 分散サービス妨害（DDoS）に対するマネージド型の保護サービス
 * Shieldにはスタンダード・アドバンスドの2つの階層があり、サポート範囲が異なる
   * CloudFrontを使用する際は、自動的にShield Standardが適用される
+
+## X-Ray
+* Amazon APIからのAPIリクエストを通してサービスを呼び出した時に、
+  そのユーザリクエストを追式および分析できる
+  + API Gateway
+    - X-Rayトレースをサポートしており、トレースデータの収集が可能

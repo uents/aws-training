@@ -50,6 +50,34 @@
 * インスタンスの障害発生時にElastic IPを即時に別のインスタンスに付け替える機能
 * https://dev.classmethod.jp/articles/aws-cdp-floating-ip-pattern/
 
+### VPCピアリング
+* 2つのVPC間でのプライベートな接続を可能にする機能
+* クロスアカウントによる接続さサポート
+* VPCピアリングの通信相手はVPC内のEC2インスタンスなど
+  + IGWやVGWなどにトランジットすることはできない
+* 相手先のVPCがピアリングしている別のVPCに推移的に接続することもできない
+  + https://docs.aws.amazon.com/ja_jp/vpc/latest/peering/invalid-peering-configurations.html#edge-to-edge-vgw
+  + 相手先のVPCがDirect Connectにより接続しているオンプレ環境への接続も不可
+
+### VPCエンドポイント
+* VPC内からインターネット上のAWSサービスに接続する際に、AWS内のプライベートなネットワークで接続が可能になる
+* NATゲートウェイを介さずともVPCエンドポイントを介して接続できるようになる
+* エンドポイントには「ゲートウェイエンドポイント」「インターフェースエンドポイント（AWS PrivateLink）」の2種類が存在
+  - ゲートウェイ型
+    + S3
+    + DynamoDB
+  - インターフェース型（AWS PrivateLinkで提供）
+    + API Gateway
+    + CloudWatch (Events,Logs含む)
+    + ClodeBuild
+    + EC2 API
+    + ELB API
+    + KMS
+    + Kinesis Data Streams
+    + SNS
+    + ...
+    + 他のAWSアカウントによってホストされるエンドポイントサービス
+
 ---
 ## Site-to-Site VPN
 * https://docs.aws.amazon.com/ja_jp/vpn/latest/s2svpn/VPC_VPN.html
@@ -63,7 +91,7 @@
 ---
 ## Direct Connect
 * https://aws.amazon.com/jp/directconnect/
-* AWSとオフィス・データセンターなどの物理拠点を専用線で繋ぐサービス
+* AWSとオフィス・データセンターなどの物理拠点を**専用線**で繋ぐサービス
 * 接続速度は最大100Gbps。1Gbps/10Gbps/100GbpsのEtherポートを持つ専用線によりAWSとのリンクを確立
 
 ### Direct Connectローケーション
@@ -278,27 +306,36 @@ https://aws.amazon.com/jp/cloudfront/
 * 配信処理コストを抑制するために、エッジロケーション側でファイル圧縮処理を行うことができる
 
 ### アクセス制限
-* 署名付きURLと署名付きCookieにより配信コンテンツへのアクセスを詳細に制御
-* オリジンへのアクセス制限
-  * Original Access Identity（OAI）
-    * S3へのアクセスをCloudFrontからのみに限定することができる機能
-    * コンテンツにアクセス可能な日時やIPアドレスの制御が可能になる
-  * カスタムヘッダー
-    * ヘッダーに制約を設ける
-  * ビューワープロトコルポリシー
-    * ビューワーがCloudFrontにアクセスするのにHTTPSを使用しなければならないようにディストリビューションを設定
-  * オリジンプロトコルポリシー
-    * CloudFrontがビューワーと同じプロトコルを使用してリクエストをオリジンに転送するように、ディストリビューションを設定
-* キャッシュのアクセス制限
-  * 署名付きURL
+https://hacknote.jp/archives/43218/
+![](https://hacknote.jp/wp-content/uploads/2018/09/s3rest000.png)
+
+オリジンへのアクセス制限
+
+* Original Access Identity（OAI）
+  * S3へのアクセスをCloudFrontからのみに限定することができる機能
+  * **コンテンツにアクセス可能な日時やIPアドレスの制御が可能になる**
+* カスタムヘッダー
+  * ヘッダーに制約を設ててアクセスを制限する
+* ビューワープロトコルポリシー
+  * ビューワーがCloudFrontにアクセスするのにHTTPSを使用しなければならないようにディストリビューションを設定
+* オリジンプロトコルポリシー
+  * CloudFrontがビューワーと同じプロトコルを使用してリクエストをオリジンに転送するように、ディストリビューションを設定
+
+キャッシュへののアクセス制限
+
+* 署名付きURL
     * コンテンツへの直接のURLではなく、署名付きURLからアクセスさせる
     * 個別のファイルへのアクセスを制限する場合（インストーラのDLなど）に利用する
     * ユーザーがCookieをサポートしていないクライアントを使用している場合に利用する
-  * 署名付きCookie
+* 署名付きCookie
     * 署名付きCookieからのみアクセスさせる
       * Set-Cookieヘッダにポリシー（有効期限やソースIP）、署名、キーペアIDを付与させる
     * 複数の制限されたファイル（ウェブサイトの購読者の領域にあるファイルなど）へのアクセスを提供する場合に利用
-    * 現在のURLをしたくない場合に利用
+    * 現在のURLを変更したくない用途でも使える
+
+### オリジンフェイルオーバー
+![](https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2018/11/cf-failover.png)
+CloudFront単独でのオリジンを切り替えるフェイルオーバーを設定可能
 
 ---
 ## Global Accelerator

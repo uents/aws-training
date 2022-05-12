@@ -50,6 +50,26 @@ EC2にアタッチされるブロックレベルのストレージサービス
 * EBSをRAID0構成とし、複数のディスクを1台のディスクのように扱うことで読み書きのパフォーマンスを向上させる
 * https://dev.classmethod.jp/articles/amazon-ebs-raid0/
 
+
+### IOPS
+* IOPSとは
+  - 1秒あたりの入出力操作（I/O）数を表す測定単位
+  - リクエストされたボリュームサイズに対するプロビジョンドIOPSの最大比率(GiB単位)は、io1ボリュームで `50:1`、io2ボリュームで `500:1`
+  - io1（プロビジョンドIOPS）を例に取ると、
+    + 100GiB なら 5000IOPS
+    + 10GiB なら 500IOPS
+  - つまり、IOPSを上げようと思うと、ブロックサイズを上げる都合上、
+    ストレージの容量も上げないといけない
+    + 例えば、3200IOPSなら、3200/50 = 64GiB が、最低ストレージ容量
+* スループットとは
+  - 1秒あたりの最大データ転送量の測定単位
+  - 単位はGbps、Mbpsなど
+* IOPSとスループット
+  - サイズが4KB以下のファイルを大きく書き込むような場合は、IOPSを
+  - １度の書き込みが数GBのような単位なら、スループットを
+  - 重視した方がパフォーマンスは上がりやすい
+
+
 ---
 ## S3/Glacier
 ### ストレージクラス
@@ -124,6 +144,10 @@ EC2にアタッチされるブロックレベルのストレージサービス
 3. index.htmlなどのHTMLドキュメントばバケット内に保存
 4. 静的Webサイトホスティングを有効化し、index.htmlをデフォルトページに設定
 
+エンドポイントのURLは以下の2つの形式が利用可能
+* `http://{bucket-name}.s3-website-{region}.amazonaws.com`
+* `http://{bucket-name}.s3-website.{region}.amazonaws.com`
+
 ### データ暗号化
 * SSE = Server Side Encryption
 * CSE = Client Side Encryption
@@ -134,6 +158,15 @@ EC2にアタッチされるブロックレベルのストレージサービス
 | SSE-KMS | AWS KMSで設定したキーを利用して暗号化を実施。ユーザー側でKMSを使用してキーを作成・管理 |
 | SSE-C | ユーザーが指定したキーにより暗号化を実施（C=Client）。ユーザー側でキーの要件に対し柔軟に対応できる |
 | CSE | クライアント側でS3に送信する前にデータを暗号化 |
+
+### S3のイベント発行
+以下のサービスに対しイベントを発行できる。
+* SNSトピック
+  * S3をトリガーとしてSNSトピックを発行。メールなどを通知できる
+* SQSキュー
+  * S3をトリガーとしてキューに配信
+* Lambda
+  * S3をトリガーとしてLambda関数を実行できる
 
 ### S3 Transfer Acceleration
 * クライアントとS3バケット間で長距離のファイル転送を高速・簡単・安全に行うことが可能になる機能
@@ -183,6 +216,8 @@ https://aws.amazon.com/jp/fsx/windows/
 
 * フルマネージド型のMicrosoft Windowsファイルシステム（NTFS）の共有ストレージを提供するサービス
 * SMBプロトコルを使って最大数千台のコンピューティングインスタンスからアクセス可能なファイルシステムを提供
+* Windowsのネイティブファイルシステムと同じく、
+  Access Control Lists（ACLs）、シャドウコピー、ユーザークォータなどの機能をサポートしている
 * Windows File Server以外に、NetApp ONTAP、OpenZFS、Lustre向けのサービスもある https://aws.amazon.com/jp/fsx/
 
 ---
