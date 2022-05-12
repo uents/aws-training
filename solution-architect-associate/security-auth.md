@@ -50,14 +50,82 @@ AWS責任共有モデルによる責務分担。ユーザー側の責任範囲�
 
 一方、ハードウェア、ネットワークインフラ、データセンターはAWS側の責任
 
-## IAM
-### タグを条件としたIAMポリシー
-* https://aws.amazon.com/jp/premiumsupport/knowledge-center/iam-ec2-resource-tags/
-* IAMポリシーでEC2インスタンス等のリソースタグを条件に加えることで、例えば本番環境/開発環境ごとに運用ポリシーを変えることが可能に
+## IAM（Identity and Access Management）
+安全にAWS操作を実施するための認証・認可の仕組み
+* AWSアカウント内のユーザーを作成
+* AWSリソースへのアクセス権限を管理
+* リソース間のアクセス権限を管理
+* 一時的なアクセスを許可
 
-### VPCを条件としたIAMポリシー
-* https://qiita.com/ijin/items/8c53735ee5671cadbf2c
-* IAMポリシーでEC2インスタンス等のリソースタグを条件に加えることで、例えば本番環境/開発環境ごとに運用ポリシーを変えることが可能に
+### 主要な要素
+
+| 要素 | 機能 |
+| --- | --- |
+| IAMポリシー | ユーザーなどへのアクセス権限を付与するためのJSON形式にドキュメント |
+| IAMユーザー | AWSアカウント内に追加されるユーザー。AWS利用者はIAMユーザーという権限を付与されたエンティティとして設定される |
+| IAMユーザーグループ | グループとしてまとめて権限を付与する仕組み。複数のIAMユーザーに対して設定される |
+| IAMロール | AWSリソースに別のリソースに対するアクセス権限を付与する仕組み。別のAWSアカウントのIAMユーザーにアクセス権を移譲する際にも利用 |
+
+| 要素 | 内容 |
+| --- | --- |
+| IAMリソース | IAMで保存・管理されるユーザー、グループ、ロール、ポリシー、およびIDプロパイダー |
+| IAMアイデンティティ | ユーザー、グループ、およびロール |
+| IAMエンティティ | ユーザーおよびロール |
+| プリンシパル | アクションを実行する人、ルートユーザー、IAMユーザー、またはアプリケーション。フェデレーティッドユーザー（外部認証されたユーザー）と引き受けたロールも含まれる |
+
+プリンシパルの指定パターン
+* AWSアカウント単位で指定
+  ``` json
+  "Principal": { "AWS": "arn:aws:iam::123456789012:root" } 
+  ```
+  または
+  ``` json
+  "Principal": { "AWS": "123456789012" } 
+  ```
+* IAMロール指定
+  ``` json
+  "Principal": { "AWS": "arn:aws:iam::123456789012:role/role-name" }
+  ```
+* ロールセッション指定
+  ``` json
+  "Principal": { "AWS": "arn:aws:iam::123456789012:assumed-role/role-name/role-session-name" }
+  ```
+* IAMユーザー指定
+  ``` json
+  "Principal": { "AWS": "arn:aws:iam::123456789012:user/user-name" }
+  ```
+  > IAMユーザーグループに対する指定は不可
+* AWSサービス指定
+  ``` json
+  "Principal": {
+      "Service": [
+          "ecs.amazonaws.com",
+          "elasticloadbalancing.amazonaws.com"
+     ]
+  }
+  ```
+
+### IAMユーザーの種別
+* ルートユーザー
+  + IAMではない
+  + AWSアカウント作成時に作られるIDアカウント
+* 管理者権限のIAMユーザー
+  + IAMの操作権限を持つ
+* パワーユーザー権限のIAMユーザー
+  + IAM以外のすべてのAWSサービスにフルアクセスできる
+  + IAMの操作権限はなし
+
+### Permissions boundary
+* IAMユーザーに対して権限境界（Permissions boundary）を設定して、
+  付与可能な権限範囲をあらかじめ制限できる
+
+### IAMポリシーの条件指定の例
+* タグを条件としたIAMポリシー
+  * https://aws.amazon.com/jp/premiumsupport/knowledge-center/iam-ec2-resource-tags/
+  * IAMポリシーでEC2インスタンス等のリソースタグを条件に加えることで、例えば本番環境/開発環境ごとに運用ポリシーを変えることが可能に
+* VPCを条件としたIAMポリシー
+  * https://qiita.com/ijin/items/8c53735ee5671cadbf2c
+  * IAMポリシーでEC2インスタンス等のリソースタグを条件に加えることで、例えば本番環境/開発環境ごとに運用ポリシーを変えることが可能に
 
 ## STS（Security Token Service）
 限定的かつ一時的にセキュリティ認証情報を提供するサービス
