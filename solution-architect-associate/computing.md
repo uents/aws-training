@@ -126,6 +126,13 @@
 * ROA（Route Origin Authorization）という認証を通す
   * https://fluid-27.hatenablog.com/entry/2021/07/16/204216
 
+## vCPU制限
+* インスタンスサイズ毎にvCPU数の制限がある
+  * https://blog.serverworks.co.jp/tech/2019/11/05/ec2-new-limit/
+  * 制限の緩和はサービスクォータで申請
+* 2019/9/24より導入された機能。それまではインスタンス数での上限だった
+  （1ファミリーあたり合わせて最大20個）
+
 ---
 ## Elastic Load Balancing
 ![](https://docs.aws.amazon.com/ja_jp/elasticloadbalancing/latest/userguide/images/cross_zone_load_balancing_enabled.png)

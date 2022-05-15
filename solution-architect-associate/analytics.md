@@ -1,6 +1,14 @@
 # アナリティクス
 
 ---
+## EMR
+Apache Spark、Apache Hive、Presto などのオープンソース分析フレームワークを使用し、
+大規模な分散データ処理ジョブ、インタラクティブSQLクエリ、
+機械学習 (ML) アプリケーションを実行するフレームワーク。
+
+![](https://d1.awsstatic.com/products/EMR/Product-Page-Diagram_Amazon-EMR.803d6adad956ba21ceb96311d15e5022c2b6722b.png)
+
+---
 ## Kinesis
 主に3つのサービスで構成される。
 * Kinesis Data Streams
