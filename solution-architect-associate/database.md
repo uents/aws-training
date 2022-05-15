@@ -104,6 +104,8 @@ https://qiita.com/leomaro7/items/e48d9941dab5b5f2a718
 * プロビジョンドスループット
   * Read/Writeごとに必要すスループットのキャパシティを割り当てる
 * ストレージ容量に制限がない
+* リザーブドキャパティによる事前購入割引がある
+  * https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/HowItWorks.ReadWriteCapacityMode.html
 
 ### ユースケース
 1. ビッグデータ

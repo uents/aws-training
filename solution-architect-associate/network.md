@@ -50,6 +50,8 @@
 * インスタンスの障害発生時にElastic IPを即時に別のインスタンスに付け替える機能
 * https://dev.classmethod.jp/articles/aws-cdp-floating-ip-pattern/
 
+> Elastic IPはアタッチしていれば課金されないが、未使用のままだと課金されるので注意
+
 ### VPCピアリング
 * 2つのVPC間でのプライベートな接続を可能にする機能
 * クロスアカウントによる接続さサポート
@@ -339,6 +341,19 @@ CloudFront単独でのオリジンを切り替えるフェイルオーバーを�
 
 ---
 ## Global Accelerator
+
+![](https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2020/10/aga-ip-preservation-alb-960x467.png)
+https://dev.classmethod.jp/articles/how-toaccess-endpoints-securely-throught-through-aws-global-accelerator/
+
+* GSLB（グローバルサーバロードバラシング）サービスであり、
+  アプリケーションの可用性とパフォーマンスをグローバルに改善することができる
+* アプリケーション(エンドポイント)には以下を指定できる
+  + アプリケーションロードバランサー（ALB）
+  + ネットワークロードバランサー（NLB）
+  + EC2
+  + Elastic IP
+* AWS上のアプリケーションに対して固定エントリポイントとなる静的IPアドレスを提供し、
+  様々なリージョン、AZの特定のIPアドレスの管理における複雑さを排除しつつ、アプリケーションアクセスを効率化する
 
 ---
 ## API Gateway
