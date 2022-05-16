@@ -42,25 +42,70 @@ https://qiita.com/leomaro7/items/e48d9941dab5b5f2a718
   + エンジンのオプション
     - Aurora、MySQL、MariaDB、PostgreSQL、Oracle、Microsoft SQL Server
 * マルチAZで分散されたクラスタ構成により、高速・高性能なRDBを実現
-  + 最大で3つのAZに2つずつ、計6台のノードを設置可能
-  + 複数AZでマスターノードを持てる（Auroraマルチマスター）
+  + **最大で3つのAZに2つずつ、計6台のノードを設置可能**
 * クエリ処理量が多くOLTPで利用する業務用データベースに最適
 
-### Auroraサーバレス
-予測困難な（処理負荷が一定ではない）アプリケーションワークロードに対応した、
-Auroraのオンデマンド自動スケーリング構成。
+![](https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2020/08/001-3.png)
 
-* アプリケーションのニーズに応じて実行される
+
+### エンドポイント
+![](https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2020/08/04-1.png)
+
+* クラスタエンドポイント
+  * プライマリDBインスタンスに接続できる唯一のエンドポイント
+  * 書き込み用途であればこれを選択
+* 読み取りエンドポイント
+  * リードレプリカに接続するエンドポイント
+  * 読み込み用途であればこれを選択
+  * リードレプリカが存在しない場合は、プライマリDBに接続する
+    （この場合は確か書き込みが行えたはず）
+* カスタムエンドポイント
+  * 任意のDBインスタンスをグループ化して接続対象に設定できる
+
+### Auroraリードレプリカ
+![](https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2020/08/13-2.png)
+
+* Auroraレプリカと呼ばれることもある
+* Auroraクラスタの読み取りオペレーションのスケーリングと可用性向上に利用されるリードレプリカ
+* プライマリDBと参照するボリュームは同じであるため、レプリカ遅延が遅い（通常は10ms）
+  * https://dev.classmethod.jp/articles/re-introduction-2020-amazon-aurora/#toc-5
+
+### Auto Scaling
+* リードレプリカに対しEC2のようなAuto Scaling機能が利用できる
+* ターゲットメトリクス
+  * Auroraレプリカの平均CPU使用率
+  * Auroraレプリカの平均接続数
+* クールダウン設定も可能（デフォルトは300秒）
+
+### フェイルオーバー
+* プライマリDBインスタンスに障害が発生した場合、**自動的にリードレプリカがプライマリDBインスタンスに昇格**
+* リードレプリカに対しフェイルオーバーの優先度を設定することが可能
+  （同値の場合、任意のリードレプリカが昇格）
+
+### マルチマスタークラスタ
+![](https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2020/08/03-1.png)
+
+* プライマリDBの2面持ちが可能になる
+* 片方のプライマリDBに障害が発生した場合でも、もう片方のプライマリDBには継続的な書き込みができる
+
+### Auroraサーバレス
+![](https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2020/08/07-1.png)
+
+* Auroraのオンデマンド自動スケーリング構成。クラスタありきの構成とは異なる
   + 自動的に起動/シャットダウン
   + 自動でスケールアップ/スケールダウン
-* 最小キャパシティ/最大キャパシティを事前に設定
-* サーバレスアプリケーション向けに、発生ベースで利用可能な柔軟はRDBとしても活用できる
+  + 最小キャパシティ/最大キャパシティを事前に設定
+* クラスタ構成ありきとは異なり、アプリケーションからの利用がない限り、コンピューティング性能に対しての費用がかからない
+* 不定期で使用するアプリケーションや、可変ワークロードのアプリケーションで有用
+* クラスタ構成のAuroraで使用できる機能の一部が使えない
 
-### AuroraグローバルDB
+### Auroraグローバルデータベース
 * https://aws.amazon.com/jp/rds/aurora/global-database/
 * 他のリージョンに高性能なリードレプリカを構築可能
 * 概ね1秒以下・最大でも5秒という低レイテンシーでストレージレベルのレプリケーションを実現
-* マスターに障害が発生した場合、リーダーがマスターに昇格することでフェイルオーバーを実現。（他のRDSにはない機能）
+* リージョン間のフェイルオーバーをサポート
+  * マスターに障害が発生した場合、リーダーがマスターに昇格することでフェイルオーバーを実現
+  * https://dev.classmethod.jp/articles/amazon-aurora-global-database-failover-between-region/
 
 ---
 ## Redshift
@@ -105,6 +150,7 @@ Auroraのオンデマンド自動スケーリング構成。
 
 ### 拡張VPCルーティング
 * https://docs.aws.amazon.com/ja_jp/redshift/latest/mgmt/enhanced-vpc-routing.html
+* https://dev.classmethod.jp/articles/20161020-redshift-enhanced-vpc/
 * VPCに出入りするRedshiftクラスタのトラフィックを監視することができる
   * Redshiftはクラスタとデータリポジトリ間のすべてのCOPY,UPLOADトラフィックがVPCを通るように強制し、VPCフローログを使って監視する
 * さらに、VPC機能やVPCエンドポイント、IGWなどの標準的なVPCの機能も使用することができる
@@ -158,10 +204,11 @@ Auroraのオンデマンド自動スケーリング構成。
           * DynamoDBの別テーブルを更新
           * S3にログの保存
           * SNSを用いたプッシュ通知
-      * Lambda関数のメモリ制約上、512MBより大きなデータ/ファイルは扱えない
+      * Lambda関数のメモリ制約上、**512MBより大きなデータ/ファイルは扱えない**
 
 ### DynamoDB Auto Scaling
 * Auto Scalingにより、負荷に応じてWCU/RCUのスループットを自動調整
+* CloudWatchのモニタリングにもとづいて、トラフィックパターンに応じてプロビジョンドスループット性能をユーザーに代わって動的に調整
 
 ### DynamoDB Accelerator（DAX）
 * インメモリキャッシュを利用しクエリを高速化（ms→usオーダー）
