@@ -8,7 +8,7 @@ https://qiita.com/leomaro7/items/e48d9941dab5b5f2a718
 ## RDS
 * AWSが提供するマネージドサービス
 * MySQL、MariaDB、PostgreSQL、Oracle、Microsoft SQL Severなどのデータベースエンジンから選択可能
-  - MySQLのストレージエンジンはInnoDB（MyISAMは選択できない）
+  - MySQLのストレージエンジンはInnoDB（RDSではMyISAMは選択できない）
 
 ### マルチAZ
 * 別AZにセカンダリーDBを作成することで、BCP対策が可能に
@@ -154,10 +154,11 @@ Auroraのオンデマンド自動スケーリング構成。
   1. クロスリージョンレプリケーション
       * ストリームのよるキャプションをトリガーとしてクロスリージョンレプリケーションを実施することが可能
   2. データ更新をトリガーとしたアプリケーション
-      * Lambda関数：最大512MBまでデータを扱うことが可能
+      * 具体的にはLambda関数で実装
           * DynamoDBの別テーブルを更新
           * S3にログの保存
           * SNSを用いたプッシュ通知
+      * Lambda関数のメモリ制約上、512MBより大きなデータ/ファイルは扱えない
 
 ### DynamoDB Auto Scaling
 * Auto Scalingにより、負荷に応じてWCU/RCUのスループットを自動調整
