@@ -315,21 +315,24 @@ https://aws.amazon.com/jp/fsx/windows/
 
 ---
 ## Storage Gateway
-https://aws.amazon.com/jp/storagegateway/
-![](https://d1.awsstatic.com/pdp-how-it-works-assets/product-page-diagram_AWS-Storage-Gateway_HIW@2x.6df96d96cdbaa61ed3ce935262431aabcfb9e52d.png)
-
 * オンプレミスにあるデータをクラウドへ連携するための受け口を提供するサービス
 * データの保存先は、S3やS3 Glacierといった耐久性が高く低コストなストレージを利用
 * キャッシュストレージとしてはEBSを利用
-* オンプレミス・AWSのどちら側にも配置が可能
-  + オンプレミス向けにはVMwareやHyper-Vで利用できるイメージを提供。
-    これらのハイパーバイザー環境があればかんたんに導入可能
-  + AWS向けにはEC2インスタンスのStorage Gateway様AMIを用意
+* **オンプレミス・AWSのどちら側にも配置が可能**
+  + オンプレミス向け
+    - VMwareやHyper-Vで利用できるイメージを提供
+    - これらのハイパーバイザー環境があればかんたんに導入可能
+  + AWS向け
+    - EC2インスタンスのStorage Gateway用のAMIを用意
 
 ### ゲートウェイタイプ
-ファイルゲートウェイ・ボリュームゲートウェイ・テープゲートウェイが用意されている
-* ファイルゲートウェイ・キャッシュ型ボリュームゲートウェイは、参照度の高いデータは「ファイルキャッシュ」として、オンプレのキャッシュボリュームに配置する
-* 一方、保管型ボリュームゲートウェイは、プライマリのデータの保存場所はオンプレ側であり、S3はスナップショットの置き場所と、S3の意味合いが異なる
+* https://docs.aws.amazon.com/ja_jp/storagegateway/latest/userguide/StorageGatewayConcepts.html
+* ファイルゲートウェイ・ボリュームゲートウェイ・テープゲートウェイが用意されている
+  * ファイルゲートウェイ・キャッシュ型ボリュームゲートウェイ
+    * 参照度の高いデータは「ファイルキャッシュ」として、キャッシュボリュームに配置する
+  * 保管型ボリュームゲートウェイ
+    * プライマリのデータの保存場所はゲートウェイ側
+    * S3はスナップショットの置き場所
 
 | タイプ | | 配置先 | S3での保存単位 | S3への保存タイミング | プライマリデータの保存場所 | ファイルキャッシュ | クライアントIF | S3 APIからのアクセス |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -337,6 +340,24 @@ https://aws.amazon.com/jp/storagegateway/
 | ボリューム | キャッシュ型 | オンプレ,EC2 | ボリューム | 非同期スナップショット | S3 | あり（一部） | iSCSI | 不可 |
 | | 保管型 | オンプレ | ボリューム | 非同期スナップショット | ローカルディスク | あり（全部） | iSCSI | 不可 |
 | テープ | | オンプレ,EC2 | 仮想テープ | 非同期バックアップ | ローカルディスク | なし | iSCSI | 不可 |
+
+#### ファイルゲートウェイ
+プライマリデータはS3。S3はファイル単位でオブジェクトを保存（通常のS3の使い方と同じ）。
+ゲートウェイ側に参照度の高いデータをキャッシュ
+
+![](https://docs.aws.amazon.com/ja_jp/storagegateway/latest/userguide/images/file-gateway-concepts-diagram.png)
+
+#### キャッシュ型ボリューム
+プライマリーデータはS3だが、ボリューム単位でオブジェクトを保存。
+ゲートウェイ側に参照度の高いデータをキャッシュ
+
+![](https://docs.aws.amazon.com/ja_jp/storagegateway/latest/userguide/images/aws-storage-gateway-cached-diagram.png)
+
+#### 保管型ボリューム
+プライマリーデータはゲートウェイ。S3はボリュームのスナップショットの置き場所
+
+![](https://docs.aws.amazon.com/ja_jp/storagegateway/latest/userguide/images/aws-storage-gateway-stored-diagram.png)
+
 
 > iSCSIインターフェースはEBS,S3,Glacierには存在しない。
 > よって、iSCSIインターフェースを利用したい場合は自動的にStorage Gatewayが必要となる
