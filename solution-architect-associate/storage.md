@@ -367,8 +367,8 @@ https://aws.amazon.com/jp/fsx/windows/
 > iSCSIインターフェースはEBS,S3,Glacierには存在しない。
 > よって、iSCSIインターフェースを利用したい場合は自動的にStorage Gatewayが必要となる
 
-## DataSync
-![](https://d1.awsstatic.com/aws-datasync/case.53c1297e16befdbb5fde775c586d47f5770221bb.png)
+## AWS DataSync
+オンプレミスストレージとEFS、FSxなどのファイルシステム間でデータを迅速かつ
+かんたんに移動する際に利用するマネージド型のデータ転送サービス
 
-* オンプレミスストレージとEFS、FSxなどのファイルシステム間でデータを迅速かつ
-  かんたんに移動する際に利用するマネージド型のデータ転送サービス
+![](https://d1.awsstatic.com/aws-datasync/case.53c1297e16befdbb5fde775c586d47f5770221bb.png)

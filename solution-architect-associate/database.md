@@ -9,6 +9,7 @@ https://qiita.com/leomaro7/items/e48d9941dab5b5f2a718
 * AWSが提供するマネージドサービス
 * MySQL、MariaDB、PostgreSQL、Oracle、Microsoft SQL Severなどのデータベースエンジンから選択可能
   - MySQLのストレージエンジンはInnoDB（RDSではMyISAMは選択できない）
+* 最大5台のリードレプリカを設置可能（Auroraは最大15台）
 
 ### マルチAZ
 * 別AZにセカンダリーDBを作成することで、BCP対策が可能に
@@ -29,12 +30,13 @@ https://qiita.com/leomaro7/items/e48d9941dab5b5f2a718
     うまくいかないところを、RDS Proxyは効率的に実行できる
 
 ### IAM DB認証
-* データベース認証をIAMユーザーまたはIAMロール認証で行うことができる
+* データベースに対する認証を、IAMユーザーまたはIAMロール認証で行うことができる
 * https://blog.serverworks.co.jp/rds-iamdblogin
 
 ### RDS Auto Scaling
 * 増加するデータベースのワークロードに対し、ストレージ容量がダウンタイムなしに自動的にスケールされる
-* ただし、ストレージ容量のスケーリングであり、コンピューティングに対するものではない
+* ただし、**ストレージ容量のスケーリング**であり、コンピューティングに対するものではない
+  * I/Oのパフォーマンス向上には使用できないので注意
 
 ---
 ## Aurora
@@ -42,7 +44,8 @@ https://qiita.com/leomaro7/items/e48d9941dab5b5f2a718
   + エンジンのオプション
     - Aurora、MySQL、MariaDB、PostgreSQL、Oracle、Microsoft SQL Server
 * マルチAZで分散されたクラスタ構成により、高速・高性能なRDBを実現
-  + **最大で3つのAZに2つずつ、計6台のノードを設置可能**
+  + **最大で3つのAZに2つずつ、計6台のDBノード（レプリケーション）を設置可能**
+  + **リードレプリカは最大15まで設置可能**
 * クエリ処理量が多くOLTPで利用する業務用データベースに最適
 
 ![](https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2020/08/001-3.png)
@@ -67,11 +70,12 @@ https://qiita.com/leomaro7/items/e48d9941dab5b5f2a718
 
 * Auroraレプリカと呼ばれることもある
 * Auroraクラスタの読み取りオペレーションのスケーリングと可用性向上に利用されるリードレプリカ
-* プライマリDBと参照するボリュームは同じであるため、レプリカ遅延が遅い（通常は10ms）
+* 最大15個まで設置可能
+* プライマリDBと同じボリュームを参照するため、レプリカ遅延が遅い（通常は10ms）
   * https://dev.classmethod.jp/articles/re-introduction-2020-amazon-aurora/#toc-5
 
-### Auto Scaling
-* リードレプリカに対しEC2のようなAuto Scaling機能が利用できる
+### Aurora Auto Scaling
+* リードレプリカに対し、EC2のようなAuto Scaling機能を利用できる
 * ターゲットメトリクス
   * Auroraレプリカの平均CPU使用率
   * Auroraレプリカの平均接続数

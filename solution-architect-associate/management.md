@@ -1,8 +1,5 @@
 # マネジメント/ガバナンス
 
-## CloudTrail
-ユーザー単位でログ証跡を取得・集約
-
 ## AWS Organization
 AWS Organizationsを使用すると、保有している複数アカウント群をー元的に管理することができる。
 
@@ -13,7 +10,7 @@ AWS Organizationsを使用すると、保有している複数アカウント群
   * 費用請求などはルートAWSアカウントに集約される
   * アカウント毎の請求も可能
   * 権限が強いアカウントのため通常は利用しない
-* AWSアカウント
+* AWSアカウント（メンバーアカウント）
   * Origanizationのメンバーアカウント
   * OUで複数の子アカウントを階層的に整理することができる
   * 「IAMアカウント」とも呼ぶ？
@@ -21,13 +18,13 @@ AWS Organizationsを使用すると、保有している複数アカウント群
 ### OU（Organization Unit：組織単位）
 ![](../cloud-practitioner/assets/organization-unit.png)
 
-管理しているアカウントのうちの複数を組織単位（OU：Organization Unit）にグループ化できる。
+複数のメンバーアカウントを組織単位（OU：Organization Unit）にグループ化できる。
 
 ### SCP（Service Control Policy）
 * OUまたは個別のAWSアカウントに指定するポリシーで、OU／アカウントで実行できるサービスやアクションを制限できる
 * SCPとIAMを組み合わせることで柔軟なアクセス権限の管理が可能に
   - ルートAWSアカウントからSCPで大まかに権限を振り
-  - OU（子アカウント）のIAMで細かく権限を振る、など
+  - OU（メンバーアカウント）のIAMで細かく権限を振る、など
 
 ### アカウント移動
 * Organizationのメンバーアカウントなら、異なる組織に移動させることが可能
@@ -40,7 +37,6 @@ AWS Organizationsを使用すると、保有している複数アカウント群
     Organiizationsを利用した一括請求で、RIが共有される
 * ボリュームディスカウント
   * 各メンバーアカウントの総利用料をまとめて、ボリュームディスカウントに反映することができる
-
 
 ## Systems Manager
 * 構築済みのインフラストラクチャを可視化し、制御するためのサービス
@@ -62,3 +58,9 @@ AWS Organizationsを使用すると、保有している複数アカウント群
 
 * AWSリソースの設定から、AWSリソースの構成情報のスナップショットを取得・管理
 * この構成情報を元に、現状のAWSリソースの設定が、利用者によって定義された正しい状態になっているかを評価
+
+## AWS Backup
+![](https://d1.awsstatic.com/product-marketing/AWS%20Backup/AWS-Backup-Resources-diagram-2x.d8263a085153f2825ce52a3f814393b6c5559747.png)
+
+* AWS Storage Gatewayを使用して、オンプレミスおよびAWS サービス全体のデータのバックアップの一元化と自動化を簡単に実行できる、完全マネージド型のバックアップサービス
+* バックアップポリシーを一元的に設定し、Amazon EBSボリューム、Amazon RDSデータベース、Amazon DynamoDBテーブル、Amazon EFSファイルシステム、AWS Storage GatewayボリュームなどのAWSリソースのバックアップアクティビティを監視
