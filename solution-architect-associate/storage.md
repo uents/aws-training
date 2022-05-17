@@ -121,25 +121,30 @@ EC2にアタッチされるブロックレベルのストレージサービス
 | ACL | バケット/オブジェクト単位でのアクセス権限をXMLファイルで設定。**オブジェクトに個別に設定可能** |
 | S3アクセスポイント | バケットのアクセス権をJSONファイルで設定。1つのバケットに対して複数設定可能。外部ユーザーやアプリケーションに対する設定も可能 |
 
-#### S3アクセスポイント
-![](https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2019/12/d6fe730a319ece255d3425e9649d296e-320x206.png)
-https://dev.classmethod.jp/articles/explain-the-good-point-of-s3-access-points/
+クロスアカウントでS3バケットにアクセスさせる場合、IAMユーザーポリシーとバケットポリシーを組み合わせる必要がある
+* IAMユーザーポリシーでバケットの操作を許可
+* バケットポリシーで別アカウントから利用可能に
 
+#### S3アクセスポイント
+![](https://qiita-user-contents.imgix.net/https%3A%2F%2Fqiita-image-store.s3.ap-northeast-1.amazonaws.com%2F0%2F534812%2Fad1f395d-2e9d-fe9d-bc40-1a6fd6f9ea79.png?ixlib=rb-4.0.0&auto=format&gif-q=60&q=75&w=1400&fit=max&s=4bf36bdf22eaf37d4a616f29d9ec6f41)
+
+* https://qiita.com/yu-yama-sra/items/0a6fce8944559b98419a
 * S3の共有データセットへの大規模なデータアクセスの管理を簡素化する機能
 * アクセスポイントとは、具体的には、バケットにアタッチされた名前付きのネットワークエンドポイント
-* 各アクセスポイントは、もととなるバケットにアタッチされたバケットポリシーと
-  連動して機能する、カスタマイズされたアクセスポリシーを適用してアクセスの制御が可能
+* 各アクセスポイントは、もととなるバケットにアタッチされたバケットポリシーと連動して機能する、
+  カスタマイズされたアクセスポリシーを適用してアクセスの制御が可能
 
-#### ブロックパブリックアクセス
-* インターネットからのアクセスをブロックする機能
-* 初期設定では有効化されている（ブロックがオンになっている）
-
-#### 署名付きURL
+#### 署名付きURL（事前署名付きURL）
 * アクセスを許可するオブジェクトに対して、期限を設定してURLを発行する機能
 * バケットやオブジェクトのアクセス制御を変更することなく、一時的にアクセスを許可したい場合に有効
 * **そのURLを知っていれば誰でもアクセスできる点に注意**
 
 > 詳細は https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/PresignedUrlUploadObject.html
+
+#### ブロックパブリックアクセス
+* インターネットからのアクセスをブロックする機能
+* 初期設定では有効化されている（ブロックがオンになっている）
+
 
 ### S3のデータ保護
 #### 通信暗号化
@@ -362,8 +367,8 @@ https://aws.amazon.com/jp/fsx/windows/
 > iSCSIインターフェースはEBS,S3,Glacierには存在しない。
 > よって、iSCSIインターフェースを利用したい場合は自動的にStorage Gatewayが必要となる
 
-## DataSync
-![](https://d1.awsstatic.com/aws-datasync/case.53c1297e16befdbb5fde775c586d47f5770221bb.png)
+## AWS DataSync
+オンプレミスストレージとEFS、FSxなどのファイルシステム間でデータを迅速かつ
+かんたんに移動する際に利用するマネージド型のデータ転送サービス
 
-* オンプレミスストレージとEFS、FSxなどのファイルシステム間でデータを迅速かつ
-  かんたんに移動する際に利用するマネージド型のデータ転送サービス
+![](https://d1.awsstatic.com/aws-datasync/case.53c1297e16befdbb5fde775c586d47f5770221bb.png)

@@ -41,6 +41,7 @@ https://d1.awsstatic.com/ja_JP/training-and-certification/docs-sa-assoc/AWS-Cert
     * (SES)
     * (MQ)
     * Step Functions
+    * EventBridge
 * コンピューティング
     * EC2
     * Elastic Load Balancing
@@ -61,14 +62,12 @@ https://d1.awsstatic.com/ja_JP/training-and-certification/docs-sa-assoc/AWS-Cert
         * OpsWorks
         * CloudFormation
         * SAM
-    * Backup
-    * CloudWatch
-    * EventBridge
     * AWS Organizations
     * Resource Access Manager
     * Systems Manager
     * Trusted Advisor
     * AWS Config
+    * AWS Backup
 * マイグレーション
     * DMS
     * DataSync
@@ -102,7 +101,7 @@ https://d1.awsstatic.com/ja_JP/training-and-certification/docs-sa-assoc/AWS-Cert
         * (VPC)
     * 検出制御
         * CloudTrail
-        * (CloudWatch)
+        * CloudWatch
         * GuardDuty
         * Inspector
         * WAF

@@ -21,9 +21,10 @@
 
 ### Kinesis Data Streams
 * ストリーミング処理をシャードに分散することで高速処理が可能
-* コンシューマ/プロシューマモデル
+* プロシューマ/コンシューマモデル
+  * コンシューマ側でデータの取得（ポーリング）が必要
 * パーティションキーを利用することで、割り当てられたシャードに一貫して処理される
-* 主な出力先：Kinesis Firehose、Kinesis Analytics、Lambda、EMR、Apache Storm
+* 主な出力先は、Kinesis Firehose、Kinesis Analytics、Lambda、EMR、Apache Storm
 * 関連するライブラリ/パッケージ
   * Kinesis Agent
   * Kinesis Producer Library（KPL）
@@ -33,8 +34,14 @@
 
 ### Kinesis Data Firehose
 * 各種DBに配信・蓄積されるためのストリーム処理を実施
-* Lambdaと連携するとETLとしても機能する
+* Kinesis Data Streamsとの大きな違いは「Zero Admission」
+  * EC2でポーリングしたり、Lambdaでコードを書く必要は一切なく、直接出力可能
+  * GzipやSnappyといった圧縮アルゴリズムや、KMSを使った暗号化も対応
 * 出力先はS3、Redshift、Elastic Search
+* データ変換フロー
+  * Lambdaと連携することでデータの加工・変換が可能に
+
+![](https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2016/12/firehose_transform14.jpg?_ga=2.115691008.724312861.1652593360-1335981390.1652231649)
 
 ### Kinesis Analytics
 * ストリーミングデータを標準的なSQLクエリでリアルタイムに分析

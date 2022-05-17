@@ -11,23 +11,27 @@
 * https://zenn.dev/mn87/articles/ec0f7dfde1dc43
 
 ## AWSへのマイグレーション
-### Snowball/Snowball Edge/Snowmobile
+### Snowball/Snowball Edge/Snowmobile（Snowファミリー）
 * Snowball
   * ペタバイト規模のデータ移行。**現在は非推奨**
 * Snowball Edge
   * ペタバイト規模のデータ移行＋コンピューティングとストレージ機能
   * 最大80TB/台の利用が可能（ディスク容量自体は100TB）
-  * Compute OptmizedとStrage Optimizedの2種類が存在
+  * Storage OptimizedとCompute Optmizedと2種類が存在
+    * Storage Optimized: 80TB HDDが使用可能。
+    * Compute Optimized: 39.5TB HDD および 7.6TB SSDが使用可能。vCPUが52コア
+    * https://docs.aws.amazon.com/ja_jp/snowball/latest/developer-guide/device-differences.html
 * Snowmobile
   * エクサバイト規模のデータ移行
+  * 45フィートの輸送用トラックコンテナで、1台あたり100PBストレージを搭載
 
 ### Application Migration Service（MGN）
 ![](https://ent.iij.ad.jp/wp-content/uploads/2021/10/aws04_01.png)
 
 * https://ent.iij.ad.jp/articles/2344/
 * オンプレミスやその他のパブリッククラウドからのAWSへの移行をサポート
-* シンプルな移行プロセスでサーバーをリフトアンドシフト（Lift & Shift）
-  * リフトアンドシフト
+* シンプルな移行プロセスでサーバーをリフトアンドシフト
+  * リフトアンドシフト（Lift & Shift）
     * https://aws.amazon.com/jp/application-migration-service/
     * 移行元のサーバの構成変更することなく移行すること。具体的には移行元のサーバにエージェントをインストールし、AWS側から接続してエクスポート/インポートする
 * 他の移行サービスよりMGNの利用を推奨。MGNで難しい場合は、CloudEndureやSMSが選択肢に入る
@@ -57,8 +61,8 @@
 ### Application Discovery Service
 * オンプレミスのデータセンター内のサーバにエージェントをインストールすることで、
   データセンターの利用情報を収集することができるサービス
-* これらの情報にもとづいて、ユーザーの移行プロジェクトの計画作成を支援する
-
+* これらの情報にもとづいて、総所有コスト（TCO）の見積もりや移行プロジェクトの計画作成を支援する
+  
 ### AWS Outposts
 * オンプレミスの形式を取りながら、AWSをクラウド型インフラストラクチャーとして実行できるサービス
 * AWSが契約企業内に巨艦サーバを設置する
