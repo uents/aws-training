@@ -1,4 +1,5 @@
-@startmindmap
+@startmindmap "exam-coverage"
+
 -[#Pink] ソリューション\nアーキテクト\nアソシエイト
 
 --[#Orange] 1. 弾力性に優れた\nアーキテクチャの設計 [30%]
