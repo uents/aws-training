@@ -12,7 +12,7 @@
 ### Udemy コース比較
 
 | 項目 | コース1（講義） | コース2（演習） |
-|--|--|--|
+| --- | --- | --- |
 | タイトル | [【最新】AWS認定 Machine Learning Engineer - Associate 試験対策講座](https://www.udemy.com/course/aws-machine-learning-engineer-associate-japan/) | [MLA-C01 対策テスト4回＋＠](https://www.udemy.com/course/mla-c01-aws-machine-learning-engineer-associate-4/) |
 | 形式 | 動画講義（8時間） | 演習テスト専用（355問・6回分） |
 | 評価 | 4.6（16件）※新しいコース | 4.2（174件）※合格体験記に多数登場 |
@@ -27,7 +27,7 @@
 コース1と2は「インプット」と「アウトプット」の役割が明確に異なるため、相互補完関係にあります。Skill Builder の公式問題集を加えた以下の3セットが最も効果的です。
 
 | フェーズ | 教材 |
-|--|--|
+| --- | --- |
 | インプット | Udemy コース1（講義）＋ AWS 公式ドキュメント |
 | アウトプット | Udemy コース2（355問）＋ AWS Skill Builder 公式問題集 |
 | 仕上げ | AWS Skill Builder Official Practice Exam |
