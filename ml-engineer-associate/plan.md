@@ -41,13 +41,31 @@
 
 ### Phase 1：SageMaker 集中理解（1〜12日目）
 
-- [ ] コース1 視聴（全8時間）
+**コース1 対応セクション**
+
+| セクション | 内容 | 時間 |
+| --- | --- | --- |
+| 機械学習モデルのトレーニング | Training Job・HPT・Autopilot・Endpoints | 約2時間6分 |
+| デプロイと自動化 | Endpoints・Pipelines・CodePipeline 連携 | 約1時間52分 |
+
+> 「はじめに」「機械学習について」は ML 基礎知識ありのため視聴スキップ可。
+
+- [ ] コース1 上記2セクション視聴
 - [ ] SageMaker 主要機能の整理（`sagemaker.md` に記録）
   - Training Job / Hyperparameter Tuning / Autopilot
   - Endpoints（リアルタイム / バッチ）
   - Pipelines / Feature Store / Clarify / Model Monitor
 
 ### Phase 2：分野別インプット（13〜25日目）
+
+**コース1 対応セクション**
+
+| 分野 | コース1 セクション | 時間 |
+| --- | --- | --- |
+| 分野1: データ準備 [28%] | 機械学習のためのデータ準備 | 約2時間5分 |
+| 分野2: モデル開発 [26%] | 機械学習モデルのトレーニング | 約2時間6分（Phase 1 視聴済み → ノート整理中心） |
+| 分野3: デプロイ・オーケストレーション [22%] | デプロイと自動化 | 約1時間52分（Phase 1 視聴済み → ノート整理中心） |
+| 分野4: モニタリング・セキュリティ [24%] | モデルの運用保守とセキュリティ | 約1時間26分 |
 
 出題比率の高い順に進める。
 
@@ -108,3 +126,52 @@ ml-engineer-associate/
 - 演習で間違えた問題のキーワード
 - 理解が浅かった概念とその補足メモ
 - 試験直前の最終確認用チェックリスト
+
+---
+
+## 参考資料
+
+サービスの概略をつかむことを優先し、API ドキュメントや料金表などは優先度低めで取り組む。
+
+### 導入リソース（全フェーズ共通）
+
+初めて触れるサービスはまずこちらで概略をつかむ。
+
+| 資料 | 概要 |
+| --- | --- |
+| [AWS Skill Builder](https://skillbuilder.aws/) | 各サービスの 1〜2 時間の無料入門コース。日本語対応あり。`Amazon SageMaker Getting Started` が特に有用 |
+| [AWS デジタルコース - Learn About AI](https://aws.amazon.com/jp/training/learn-about/ai/) | 動画＋ハンズオン形式。AI/ML の基礎概念を学べる |
+
+### SageMaker（Phase 1 全般）
+
+| 資料 | 概要 |
+| --- | --- |
+| [AWS Black Belt - Amazon SageMaker 基礎編](https://aws.amazon.com/jp/blogs/news/2026-03-aws-blackbelt/) | SageMaker 全体像・各機能の使い分け |
+| [AWS Black Belt - SageMaker Model Monitor](https://youtu.be/Q-vTO1_QjMs?si=IQ0gsHVBfhzEZ2S4) | モデルドリフト・データドリフト検出 |
+
+### 分野1: データ準備
+
+| 資料 | 概要 |
+| --- | --- |
+| [AWS Black Belt - AWS Glue](https://www.youtube.com/watch?v=5fbdx849AYw) | ETL・Data Catalog・DataBrew の全体像 |
+
+### 分野2: モデル開発
+
+| 資料 | 概要 |
+| --- | --- |
+| [雲勉@オンライン【勉強会】Amazon SageMaker 入門 〜組み込みアルゴリズムで機械学習を試してみよう〜【開発エンジニア向け】](https://www.youtube.com/watch?v=aC_FG4mnasw) | アルゴリズム選択の判断基準 |
+
+### 分野3: デプロイ・オーケストレーション
+
+| 資料 | 概要 |
+| --- | --- |
+| [AWS Black Belt - AWS Step Functions](https://www.youtube.com/watch?v=PGyasNJ1QTQ) | ML ワークフローのオーケストレーション |
+| [AWS Black Belt - AWS CodePipeline 基礎編](https://www.youtube.com/watch?v=L7rKC81dYrU) | CI/CD パイプラインの概念 |
+
+### 分野4: モニタリング・セキュリティ
+
+| 資料 | 概要 |
+| --- | --- |
+| [AWS Black Belt - Amazon CloudWatch 概要と基本](https://www.youtube.com/watch?v=fzVkJne3OMI) | メトリクス・ログ・アラームの設計 |
+| [AWS Black Belt - AWS IAM](https://www.youtube.com/watch?v=K7F5yTThynw) | 最小権限設計・ロールの使い分け（SAA 復習） |
+| [AWS Black Belt - Amazon Macie](https://www.youtube.com/watch?v=I7slUbShAqM) | PII 検出・ML データの機密性管理 |
