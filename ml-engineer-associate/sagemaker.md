@@ -319,7 +319,7 @@ built_in_rules = [
     Rule.sagemaker(
       base_config=rule_configs.vanishing_gradient(),
       rule_parameters={
-        "thereshold": "0.00001",  # 勾配の値が0.00001以下の場合にアラートを出す
+        "threshold": "0.00001",  # 勾配の値が0.00001以下の場合にアラートを出す
       },
       collection_to_save={
         CollectionConfig(
