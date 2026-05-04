@@ -525,7 +525,7 @@ Autopilotは、これらのプロセスを自動化してくれる。また、�
   - 特徴量の選択や変換を自動的に行う
 - Model Tuning
   - 複数のアルゴリズムとハイパーパラメータの組み合わせを自動的に試す
-- Explain Ability Report Generated
+- Explainability Report Generated
   - モデルの予測に対する特徴量の重要度やモデルの挙動を説明するレポートを提供
 - Insights Report Generated
   - モデルの性能や特徴量の影響などに関する洞察を提供
