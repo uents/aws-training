@@ -405,11 +405,45 @@ Amazon SageMaker AIは、分散トレーニングのためのライブラリや�
 - モデル並列の実装例 (PyTorch)
 
 ```python
+import sagemaker
+from sagemaker.pytorch import PyTorch
+
+estimator = PyTorch(
+    entry_point="train.py",
+    instance_type="ml.p3.16xlarge",
+    instance_count=2,
+    distribution={
+        "smdistributed": {
+            "modelparallel": {
+                "enabled": True,
+                "parameters": {
+                    "partitions": 2,          # モデルを2つのGPUに分割
+                    "pipeline": "interleaved", # パイプライン実行で効率化
+                }
+            }
+        }
+    }
+)
 ```
 
-- データ並列の実装例 (TensorFlow)
+- データ並列の実装例 (PyTorch)
 
 ```python
+import sagemaker
+from sagemaker.pytorch import PyTorch
+
+estimator = PyTorch(
+    entry_point="train.py",
+    instance_type="ml.p3.16xlarge",
+    instance_count=4,              # 4インスタンスでデータを並列処理
+    distribution={
+        "smdistributed": {
+            "dataparallel": {
+                "enabled": True,
+            }
+        }
+    }
+)
 ```
 
 分散トレーニングライブラリは以下の処理を自動的・半自動的に行ってくれる。
